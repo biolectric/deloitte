@@ -35,6 +35,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
     Route::get('dashboard/announcement', [AnnouncementController::class, 'edit'])->name('dashboard.announcement');
     Route::post('dashboard/announcement', [AnnouncementController::class, 'update'])->name('dashboard.announcement.update');
+    Route::delete('dashboard/announcement', [AnnouncementController::class, 'destroy'])->name('dashboard.announcement.destroy');
 
     Route::get('dashboard/advent', [AdminAdventDoorController::class, 'index'])->name('dashboard.advent');
     Route::put('dashboard/advent/{adventDoor}', [AdminAdventDoorController::class, 'update'])->name('dashboard.advent.update');

@@ -1,5 +1,5 @@
 import { FormEvent } from 'react';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, router, useForm, usePage } from '@inertiajs/react';
 import { dashboard } from '@/routes';
 
 type Props = {
@@ -16,6 +16,16 @@ export default function DashboardAnnouncement({ announcementVideoUrl }: Props) {
             forceFormData: true,
             preserveScroll: true,
             onSuccess: () => form.reset('video'),
+        });
+    }
+
+    function removeVideo() {
+        if (!confirm('Aankondigingsvideo verwijderen?')) {
+            return;
+        }
+
+        router.delete('/dashboard/announcement', {
+            preserveScroll: true,
         });
     }
 
@@ -36,11 +46,20 @@ export default function DashboardAnnouncement({ announcementVideoUrl }: Props) {
                     </p>
 
                     {announcementVideoUrl ? (
-                        <video
-                            className="mt-6 aspect-video w-full rounded-lg bg-black"
-                            controls
-                            src={announcementVideoUrl}
-                        />
+                        <div className="mt-6 space-y-3">
+                            <video
+                                className="aspect-video w-full rounded-lg bg-black"
+                                controls
+                                src={announcementVideoUrl}
+                            />
+                            <button
+                                type="button"
+                                onClick={removeVideo}
+                                className="inline-flex h-10 items-center rounded-md border border-red-500/40 px-4 text-sm text-red-600 hover:bg-red-500/10 dark:text-red-300"
+                            >
+                                Video verwijderen
+                            </button>
+                        </div>
                     ) : (
                         <p className="mt-6 text-sm text-muted-foreground">Nog geen video geplaatst.</p>
                     )}
@@ -75,6 +94,7 @@ export default function DashboardAnnouncement({ announcementVideoUrl }: Props) {
         </>
     );
 }
+
 
 DashboardAnnouncement.layout = {
     breadcrumbs: [

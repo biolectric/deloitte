@@ -46,4 +46,17 @@ class AnnouncementController extends Controller
 
         return back()->with('success', 'Aankondigingsvideo bijgewerkt.');
     }
+
+    public function destroy(): RedirectResponse
+    {
+        $path = Setting::getValue(Setting::ANNOUNCEMENT_VIDEO_PATH);
+
+        if ($path) {
+            Storage::disk('public')->delete($path);
+            Setting::setValue(Setting::ANNOUNCEMENT_VIDEO_PATH, null);
+        }
+
+        return back()->with('success', 'Aankondigingsvideo verwijderd.');
+    }
 }
+

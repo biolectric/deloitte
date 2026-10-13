@@ -12,6 +12,7 @@ class SongRequestController extends Controller
     {
         SongRequest::query()->create($request->validated());
 
-        return back()->with('success', 'Je verzoek staat live op de wachtrij.');
+        return back()->with('song_success', 'Je verzoek staat live op de wachtrij.');
+
     }
 }

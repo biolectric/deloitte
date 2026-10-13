@@ -50,14 +50,14 @@ export function Countdown({ target }: Props) {
 
     return (
         <div
-            className="flex flex-wrap items-end gap-4 sm:gap-6"
+            className="grid grid-cols-2 gap-x-4 gap-y-5 sm:flex sm:flex-wrap sm:items-end sm:gap-6"
             aria-live="polite"
             suppressHydrationWarning
         >
             {cells.map((cell) => (
-                <div key={cell.label} className="min-w-[4.5rem]">
+                <div key={cell.label} className="min-w-0 sm:min-w-[4.5rem]">
                     <p
-                        className={`font-display text-4xl leading-none text-white tabular-nums sm:text-5xl ${
+                        className={`font-display text-3xl leading-none text-white tabular-nums sm:text-5xl ${
                             ready ? '' : 'opacity-40'
                         }`}
                     >
@@ -71,3 +71,4 @@ export function Countdown({ target }: Props) {
         </div>
     );
 }
+

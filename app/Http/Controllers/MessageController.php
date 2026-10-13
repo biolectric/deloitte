@@ -23,6 +23,7 @@ class MessageController extends Controller
             'department' => $request->validated('department'),
         ]);
 
-        return back()->with('success', 'Je boodschap is ontvangen.');
+        return back()->with('message_success', 'Je boodschap is ontvangen.');
+
     }
 }

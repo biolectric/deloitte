@@ -7,9 +7,10 @@ import { Countdown } from '@/components/on-air/Countdown';
 import { HowItWorks } from '@/components/on-air/HowItWorks';
 import { LiveQueue } from '@/components/on-air/LiveQueue';
 import { MessageForm } from '@/components/on-air/MessageForm';
-import { RadioDial } from '@/components/on-air/RadioDial';
 import { SongForm } from '@/components/on-air/SongForm';
+
 import { StatsStrip } from '@/components/on-air/StatsStrip';
+import { logoUrl } from '@/lib/brand';
 import type {
     AdventDoorItem,
     LiveFeedResponse,
@@ -17,6 +18,7 @@ import type {
     SegmentOption,
     SongRequestItem,
 } from '@/types/on-air';
+
 
 type Props = {
     songs: SongRequestItem[];
@@ -37,10 +39,10 @@ export default function OnAirHome({
     segments,
     canAdmin,
 }: Props) {
-    const { flash, auth } = usePage().props as {
-        flash?: { success?: string | null };
+    const { auth } = usePage().props as {
         auth?: { user?: { is_admin?: boolean } | null };
     };
+
     const [songs, setSongs] = useState(initialSongs);
     const [stats, setStats] = useState(initialStats);
 
@@ -101,33 +103,40 @@ export default function OnAirHome({
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,rgba(134,188,37,0.22),transparent_45%),radial-gradient(ellipse_at_90%_20%,rgba(255,255,255,0.06),transparent_40%),linear-gradient(180deg,#0b0b0b_0%,#121212_55%,#0b0b0b_100%)]" />
                 <div className="pointer-events-none absolute inset-0 opacity-30 [background-image:repeating-linear-gradient(90deg,transparent,transparent_48px,rgba(255,255,255,0.03)_49px)]" />
 
-                <div className="relative mx-auto grid min-h-[100svh] max-w-6xl items-center gap-12 px-6 pb-16 pt-28 lg:grid-cols-[1.1fr_0.9fr] lg:px-10 lg:pt-24">
-                    <div>
-                        <p className="font-display text-5xl leading-none tracking-wide text-[var(--onair-green)] sm:text-7xl lg:text-8xl">
-                            Deloitte On Air
-                        </p>
-                        <h1 className="mt-6 max-w-xl text-2xl font-medium leading-snug text-white sm:text-3xl">
+                <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-5 pb-12 pt-24 sm:px-6 sm:pb-16 sm:pt-28 lg:min-h-[100svh] lg:grid-cols-[minmax(0,1.6fr)_minmax(0,0.8fr)] lg:gap-10 lg:px-10 lg:pt-24">
+                    <div className="min-w-0">
+                        <div className="flex flex-col items-start gap-3 sm:flex-row sm:flex-nowrap sm:items-center sm:gap-6">
+                            <img
+                                src={logoUrl}
+                                alt=""
+                                className="h-14 w-auto shrink-0 object-contain sm:h-20 lg:h-24"
+                            />
+                            <p className="font-display text-4xl leading-none tracking-wide text-[var(--onair-green)] sm:whitespace-nowrap sm:text-7xl lg:text-8xl">
+                                Deloitte On Air
+                            </p>
+                        </div>
+                        <h1 className="mt-5 max-w-3xl text-xl font-medium leading-snug text-white sm:mt-6 sm:text-3xl">
                             Stuur je nummer in — de verzoeklijn bouwt live mee aan de uitzending.
                         </h1>
-                        <p className="mt-4 max-w-lg text-base text-white/65">
+                        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/65 sm:mt-4 sm:text-base">
                             Eén link, vier stappen naar The Year-End Review. Songs voeden Deloitte
                             Wrapped; boodschappen landen in de rubrieken.
                         </p>
-                        <div className="mt-8 flex flex-wrap gap-3">
+                        <div className="mt-6 flex w-full flex-col gap-3 sm:mt-8 sm:w-auto sm:flex-row sm:flex-wrap">
                             <a
                                 href="#verzoek"
-                                className="inline-flex h-12 items-center bg-[var(--onair-green)] px-6 font-medium text-[var(--onair-ink)] transition hover:brightness-110"
+                                className="inline-flex h-12 items-center justify-center bg-[var(--onair-green)] px-6 font-medium text-[var(--onair-ink)] transition hover:brightness-110"
                             >
                                 Nummer aanvragen
                             </a>
                             <a
                                 href="#boodschap"
-                                className="inline-flex h-12 items-center border border-white/25 px-6 font-medium text-white transition hover:border-[var(--onair-green)] hover:text-[var(--onair-green)]"
+                                className="inline-flex h-12 items-center justify-center border border-white/25 px-6 font-medium text-white transition hover:border-[var(--onair-green)] hover:text-[var(--onair-green)]"
                             >
                                 Boodschap sturen
                             </a>
                         </div>
-                        <div className="mt-12">
+                        <div className="mt-10 sm:mt-12">
                             <p className="mb-4 text-xs uppercase tracking-[0.22em] text-white/45">
                                 Aftellen tot 24 december
                             </p>
@@ -135,19 +144,17 @@ export default function OnAirHome({
                         </div>
                     </div>
 
-                    <div className="justify-self-center lg:justify-self-end">
-                        <RadioDial count={stats.song_count} />
+                    <div className="justify-self-center text-center lg:justify-self-end lg:text-right">
+                        <p className="font-display text-6xl leading-none text-white tabular-nums sm:text-7xl lg:text-8xl">
+                            {stats.song_count}
+                        </p>
+                        <p className="mt-2 text-xs uppercase tracking-[0.22em] text-white/55">
+                            nummers live
+                        </p>
                     </div>
+
                 </div>
             </section>
-
-            {flash?.success ? (
-                <div className="mx-auto max-w-6xl px-6 lg:px-10">
-                    <p className="border border-[var(--onair-green)]/40 bg-[var(--onair-green)]/10 px-4 py-3 text-[var(--onair-green)]">
-                        {flash.success}
-                    </p>
-                </div>
-            ) : null}
 
             <Section id="update" eyebrow="Vaste update" title="Aankondigingsvideo">
                 <AnnouncementPlayer url={announcementVideoUrl} />
@@ -179,6 +186,7 @@ export default function OnAirHome({
             >
                 <MessageForm segments={segments} />
             </Section>
+
 
             <Section
                 id="cijfers"
@@ -231,17 +239,22 @@ function Section({
 }) {
 
     return (
-        <section id={id} className="scroll-mt-20 border-t border-white/10 px-6 py-16 lg:px-10 lg:py-24">
+        <section id={id} className="scroll-mt-20 border-t border-white/10 px-5 py-12 sm:px-6 sm:py-16 lg:px-10 lg:py-24">
             <div className="mx-auto max-w-6xl">
                 <p className="text-xs uppercase tracking-[0.22em] text-[var(--onair-green)]">
                     {eyebrow}
                 </p>
-                <h2 className="mt-3 font-display text-4xl tracking-wide text-white sm:text-5xl">
+                <h2 className="mt-3 font-display text-[1.75rem] leading-tight tracking-wide break-words text-white sm:text-5xl sm:leading-none">
                     {title}
                 </h2>
-                {intro ? <p className="mt-3 max-w-2xl text-white/60">{intro}</p> : null}
-                <div className="mt-10">{children}</div>
+                {intro ? (
+                    <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/60 sm:text-base">
+                        {intro}
+                    </p>
+                ) : null}
+                <div className="mt-8 sm:mt-10">{children}</div>
             </div>
         </section>
     );
 }
+
