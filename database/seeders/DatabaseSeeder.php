@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             ['email' => 'admin@deloitte.onair'],
             [
                 'name' => 'On Air Admin',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('reddel123oitteactie'),
                 'email_verified_at' => now(),
                 'is_admin' => true,
             ],
