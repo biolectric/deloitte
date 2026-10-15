@@ -19,7 +19,7 @@ export default function DashboardAdvent({ adventDoors }: Props) {
 
     return (
         <>
-            <Head title="Adventskalender" />
+            <Head title="Advent calendar" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 {flash?.success ? (
                     <p className="rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-700 dark:text-green-300">
@@ -28,9 +28,9 @@ export default function DashboardAdvent({ adventDoors }: Props) {
                 ) : null}
 
                 <div>
-                    <h1 className="font-medium">Adventskalender</h1>
+                    <h1 className="font-medium">Advent calendar</h1>
                     <p className="mt-1 text-sm text-muted-foreground">
-                        Pas titel en tekst van elk vakje aan.
+                        Edit the title and text for each door.
                     </p>
                 </div>
 
@@ -51,7 +51,7 @@ function formatUnlockDate(value: string): string {
         return value;
     }
 
-    return date.toLocaleDateString('nl-BE', {
+    return date.toLocaleDateString('en-GB', {
         day: 'numeric',
         month: 'long',
         year: 'numeric',
@@ -77,7 +77,7 @@ function AdventEditor({ door }: { door: AdventDoor }) {
             className="rounded-xl border border-sidebar-border/70 p-4 dark:border-sidebar-border"
         >
             <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                Dag {door.day} · opent {formatUnlockDate(door.unlock_date)}
+                Day {door.day} · opens {formatUnlockDate(door.unlock_date)}
             </p>
             <input
                 value={title}
@@ -94,7 +94,7 @@ function AdventEditor({ door }: { door: AdventDoor }) {
                 type="submit"
                 className="mt-3 inline-flex h-10 items-center rounded-md border border-input px-4 text-sm hover:bg-muted"
             >
-                Opslaan
+                Save
             </button>
         </form>
     );
@@ -103,6 +103,6 @@ function AdventEditor({ door }: { door: AdventDoor }) {
 DashboardAdvent.layout = {
     breadcrumbs: [
         { title: 'Dashboard', href: dashboard() },
-        { title: 'Adventskalender', href: '/dashboard/advent' },
+        { title: 'Advent calendar', href: '/dashboard/advent' },
     ],
 };

@@ -1,8 +1,8 @@
 const steps = [
-    'Medewerker opent de link',
-    'Vult een verzoek of boodschap in',
-    'Komt meteen live op de pagina',
-    'Voedt rubrieken zoals Deloitte Wrapped',
+    'Colleague opens the link',
+    'Fills in a request or message',
+    'Goes live on the page instantly',
+    'Feeds segments like Deloitte Wrapped',
 ];
 
 export function HowItWorks() {
@@ -20,7 +20,7 @@ export function HowItWorks() {
                         <p className="pt-0.5 text-lg text-white">{step}</p>
                         {index === 2 ? (
                             <div className="absolute top-0 right-0 hidden max-w-[12rem] border border-white/15 bg-white/5 px-4 py-3 text-sm text-white/70 lg:block">
-                                Beheerder modereert indien nodig
+                                Admin moderates if needed
                             </div>
                         ) : null}
                     </li>
@@ -28,11 +28,11 @@ export function HowItWorks() {
             </ol>
             <div className="border border-white/15 bg-white/5 p-5 lg:hidden">
                 <p className="text-sm text-white/70">
-                    Beheerder modereert indien nodig
+                    Admin moderates if needed
                 </p>
             </div>
             <p className="text-xs uppercase tracking-[0.2em] text-white/40 lg:col-span-2">
-                gebruikersflow · 4 stappen, 1 beheerstap
+                user flow · 4 steps, 1 admin step
             </p>
         </div>
     );

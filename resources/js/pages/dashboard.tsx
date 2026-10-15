@@ -57,16 +57,16 @@ export default function Dashboard({
                 ) : null}
 
                 <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                    <StatCard label="Verzoeknummers" value={String(stats.song_count)} href="/dashboard/songs" />
-                    <StatCard label="Boodschappen" value={String(stats.message_count)} href="/dashboard/messages" />
+                    <StatCard label="Song requests" value={String(stats.song_count)} href="/dashboard/songs" />
+                    <StatCard label="Messages" value={String(stats.message_count)} href="/dashboard/messages" />
                     <StatCard
-                        label="Adventvakjes"
+                        label="Advent doors"
                         value={String(adventDoorsCount)}
                         href="/dashboard/advent"
                     />
                     <StatCard
-                        label="Uitzending"
-                        value={new Date(broadcastAt).toLocaleDateString('nl-BE', {
+                        label="Broadcast"
+                        value={new Date(broadcastAt).toLocaleDateString('en-GB', {
                             day: 'numeric',
                             month: 'short',
                         })}
@@ -76,7 +76,7 @@ export default function Dashboard({
 
                 <div className="grid gap-4 lg:grid-cols-2">
                     <Panel
-                        title="Laatste verzoeknummers"
+                        title="Latest song requests"
                         href="/dashboard/songs"
                         empty={latestSongs.length === 0}
                     >
@@ -89,7 +89,7 @@ export default function Dashboard({
                                         </p>
                                         <p className="text-sm text-muted-foreground">
                                             {[song.name, song.department].filter(Boolean).join(' · ') ||
-                                                'Anoniem'}
+                                                'Anonymous'}
                                         </p>
                                     </div>
                                 </li>
@@ -98,7 +98,7 @@ export default function Dashboard({
                     </Panel>
 
                     <Panel
-                        title="Laatste boodschappen"
+                        title="Latest messages"
                         href="/dashboard/messages"
                         empty={latestMessages.length === 0}
                     >
@@ -112,7 +112,7 @@ export default function Dashboard({
                                         <p className="text-sm text-muted-foreground">
                                             {[message.name, message.department]
                                                 .filter(Boolean)
-                                                .join(' · ') || 'Anoniem'}
+                                                .join(' · ') || 'Anonymous'}
                                         </p>
                                     </div>
                                 </li>
@@ -124,12 +124,12 @@ export default function Dashboard({
                 <div className="grid gap-4 lg:grid-cols-2">
                     <div className="rounded-xl border border-sidebar-border/70 p-4 dark:border-sidebar-border">
                         <div className="mb-3 flex items-center justify-between">
-                            <h2 className="font-medium">Aankondigingsvideo</h2>
+                            <h2 className="font-medium">Announcement video</h2>
                             <Link
                                 href="/dashboard/announcement"
                                 className="text-sm text-muted-foreground hover:text-foreground"
                             >
-                                Beheren
+                                Manage
                             </Link>
                         </div>
                         {announcementVideoUrl ? (
@@ -139,27 +139,27 @@ export default function Dashboard({
                                 src={announcementVideoUrl}
                             />
                         ) : (
-                            <p className="text-sm text-muted-foreground">Nog geen video geplaatst.</p>
+                            <p className="text-sm text-muted-foreground">No video uploaded yet.</p>
                         )}
                     </div>
 
                     <div className="rounded-xl border border-sidebar-border/70 p-4 dark:border-sidebar-border">
-                        <h2 className="font-medium">Leuke cijfers</h2>
+                        <h2 className="font-medium">Fun stats</h2>
                         <dl className="mt-4 space-y-3 text-sm">
                             <div>
-                                <dt className="text-muted-foreground">Populairste nummer</dt>
+                                <dt className="text-muted-foreground">Most requested song</dt>
                                 <dd className="mt-1 font-medium">
                                     {stats.popular_song
                                         ? `${stats.popular_song.title} — ${stats.popular_song.artist} (${stats.popular_song.count}×)`
-                                        : 'Nog te bepalen'}
+                                        : 'Still to be decided'}
                                 </dd>
                             </div>
                             <div>
-                                <dt className="text-muted-foreground">Drukste afdeling</dt>
+                                <dt className="text-muted-foreground">Busiest department</dt>
                                 <dd className="mt-1 font-medium">
                                     {stats.busiest_department
                                         ? `${stats.busiest_department.department} (${stats.busiest_department.count})`
-                                        : 'Nog te bepalen'}
+                                        : 'Still to be decided'}
                                 </dd>
                             </div>
                         </dl>
@@ -167,7 +167,7 @@ export default function Dashboard({
                             href="/"
                             className="mt-6 inline-block text-sm text-muted-foreground hover:text-foreground"
                         >
-                            Bekijk publieke site →
+                            View public site →
                         </Link>
                     </div>
                 </div>
@@ -212,10 +212,10 @@ function Panel({
             <div className="mb-2 flex items-center justify-between gap-3">
                 <h2 className="font-medium">{title}</h2>
                 <Link href={href} className="text-sm text-muted-foreground hover:text-foreground">
-                    Alles bekijken
+                    View all
                 </Link>
             </div>
-            {empty ? <p className="py-6 text-sm text-muted-foreground">Nog niets ontvangen.</p> : children}
+            {empty ? <p className="py-6 text-sm text-muted-foreground">Nothing received yet.</p> : children}
         </div>
     );
 }

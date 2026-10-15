@@ -14,7 +14,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
 
     return (
         <SidebarGroup className="px-2 py-0">
-                    <SidebarGroupLabel>On Air beheer</SidebarGroupLabel>
+                    <SidebarGroupLabel>On Air admin</SidebarGroupLabel>
 
             <SidebarMenu>
                 {items.map((item) => (

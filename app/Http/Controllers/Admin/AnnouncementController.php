@@ -28,10 +28,10 @@ class AnnouncementController extends Controller
         $request->validate([
             'video' => ['required', 'file', 'max:102400', 'mimetypes:video/mp4,video/webm,video/quicktime'],
         ], [
-            'video.required' => 'Kies een videobestand.',
-            'video.uploaded' => 'De video is te groot voor de server. Kies een kleiner bestand.',
-            'video.max' => 'De video mag maximaal 100 MB zijn.',
-            'video.mimetypes' => 'Enkel mp4, webm of mov is toegelaten.',
+            'video.required' => 'Choose a video file.',
+            'video.uploaded' => 'The video is too large for the server. Choose a smaller file.',
+            'video.max' => 'The video may be at most 100 MB.',
+            'video.mimetypes' => 'Only mp4, webm or mov is allowed.',
         ]);
 
 
@@ -44,7 +44,7 @@ class AnnouncementController extends Controller
             Storage::disk('public')->delete($previous);
         }
 
-        return back()->with('success', 'Aankondigingsvideo bijgewerkt.');
+        return back()->with('success', 'Announcement video updated.');
     }
 
     public function destroy(): RedirectResponse
@@ -56,7 +56,7 @@ class AnnouncementController extends Controller
             Setting::setValue(Setting::ANNOUNCEMENT_VIDEO_PATH, null);
         }
 
-        return back()->with('success', 'Aankondigingsvideo verwijderd.');
+        return back()->with('success', 'Announcement video deleted.');
     }
 }
 

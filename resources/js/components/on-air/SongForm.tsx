@@ -31,34 +31,34 @@ export function SongForm() {
 
             <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
                 <Field
-                    label="Titel *"
+                    label="Title *"
                     value={form.data.title}
                     error={form.errors.title}
                     onChange={(value) => form.setData('title', value)}
                     required
                 />
                 <Field
-                    label="Artiest *"
+                    label="Artist *"
                     value={form.data.artist}
                     error={form.errors.artist}
                     onChange={(value) => form.setData('artist', value)}
                     required
                 />
                 <Field
-                    label="Jouw naam"
+                    label="Your name"
                     value={form.data.name}
                     error={form.errors.name}
                     onChange={(value) => form.setData('name', value)}
                 />
                 <Field
-                    label="Afdeling"
+                    label="Department"
                     value={form.data.department}
                     error={form.errors.department}
                     onChange={(value) => form.setData('department', value)}
                 />
                 <div className="sm:col-span-2">
                     <Field
-                        label="Korte reden"
+                        label="Short reason"
                         value={form.data.reason}
                         error={form.errors.reason}
                         onChange={(value) => form.setData('reason', value)}
@@ -70,7 +70,7 @@ export function SongForm() {
                         disabled={form.processing}
                         className="inline-flex h-12 items-center justify-center bg-[var(--onair-green)] px-8 font-medium text-[var(--onair-ink)] transition hover:brightness-110 disabled:opacity-60"
                     >
-                        {form.processing ? 'Versturen…' : 'Verzoek insturen'}
+                        {form.processing ? 'Sending…' : 'Submit request'}
                     </button>
                 </div>
             </form>

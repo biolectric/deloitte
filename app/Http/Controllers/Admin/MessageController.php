@@ -34,6 +34,6 @@ class MessageController extends Controller
         Storage::disk('public')->delete($message->media_path);
         $message->delete();
 
-        return back()->with('success', 'Boodschap verwijderd.');
+        return back()->with('success', 'Message deleted.');
     }
 }

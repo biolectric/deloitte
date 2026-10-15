@@ -8,7 +8,7 @@ export function LiveQueue({ songs }: Props) {
     if (songs.length === 0) {
         return (
             <p className="text-white/55">
-                Nog geen verzoeken — wees de eerste op de lijn.
+                No requests yet — be the first on the line.
             </p>
         );
     }
@@ -30,7 +30,7 @@ export function LiveQueue({ songs }: Props) {
                             <span className="text-white/45"> — {song.artist}</span>
                         </p>
                         <p className="mt-1 text-sm text-white/45">
-                            {[song.name, song.department].filter(Boolean).join(' · ') || 'Anoniem'}
+                            {[song.name, song.department].filter(Boolean).join(' · ') || 'Anonymous'}
                             {song.reason ? ` · “${song.reason}”` : ''}
                         </p>
                     </div>

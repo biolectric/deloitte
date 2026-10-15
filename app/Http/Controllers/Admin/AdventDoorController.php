@@ -37,6 +37,6 @@ class AdventDoorController extends Controller
 
         $adventDoor->update($validated);
 
-        return back()->with('success', "Dag {$adventDoor->day} bijgewerkt.");
+        return back()->with('success', "Day {$adventDoor->day} updated.");
     }
 }

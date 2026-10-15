@@ -93,7 +93,7 @@ export default function Login({ status, canResetPassword }: Props) {
                         </div>
 
                         <div className="text-center text-sm text-muted-foreground">
-                            Alleen voor redactie van Deloitte On Air.
+                            For Deloitte On Air editorial only.
                         </div>
                     </>
                 )}

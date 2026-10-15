@@ -20,7 +20,7 @@ export default function DashboardMessages({ messages }: Props) {
 
     return (
         <>
-            <Head title="Boodschappen" />
+            <Head title="Messages" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 {flash?.success ? (
                     <p className="rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-700 dark:text-green-300">
@@ -30,9 +30,9 @@ export default function DashboardMessages({ messages }: Props) {
 
                 <div className="rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <div className="border-b border-border px-4 py-3">
-                        <h1 className="font-medium">Boodschappen ({messages.length})</h1>
+                        <h1 className="font-medium">Messages ({messages.length})</h1>
                         <p className="text-sm text-muted-foreground">
-                            Video- en spraakboodschappen voor de rubrieken.
+                            Video and voice messages for the segments.
                         </p>
                     </div>
                     <ul className="divide-y divide-border px-4">
@@ -44,7 +44,7 @@ export default function DashboardMessages({ messages }: Props) {
                                     </p>
                                     <p className="text-sm text-muted-foreground">
                                         {[message.name, message.department].filter(Boolean).join(' · ') ||
-                                            'Anoniem'}
+                                            'Anonymous'}
                                     </p>
                                     <a
                                         href={message.media_url}
@@ -52,7 +52,7 @@ export default function DashboardMessages({ messages }: Props) {
                                         rel="noreferrer"
                                         className="mt-1 inline-block text-sm text-primary hover:underline"
                                     >
-                                        Bestand openen
+                                        Open file
                                     </a>
                                 </div>
                                 <button
@@ -64,12 +64,12 @@ export default function DashboardMessages({ messages }: Props) {
                                     }
                                     className="shrink-0 text-sm text-red-600 hover:underline dark:text-red-300"
                                 >
-                                    Verwijderen
+                                    Delete
                                 </button>
                             </li>
                         ))}
                         {messages.length === 0 ? (
-                            <li className="py-8 text-sm text-muted-foreground">Geen boodschappen.</li>
+                            <li className="py-8 text-sm text-muted-foreground">No messages.</li>
                         ) : null}
                     </ul>
                 </div>
@@ -81,6 +81,6 @@ export default function DashboardMessages({ messages }: Props) {
 DashboardMessages.layout = {
     breadcrumbs: [
         { title: 'Dashboard', href: dashboard() },
-        { title: 'Boodschappen', href: '/dashboard/messages' },
+        { title: 'Messages', href: '/dashboard/messages' },
     ],
 };

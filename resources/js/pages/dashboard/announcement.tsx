@@ -20,7 +20,7 @@ export default function DashboardAnnouncement({ announcementVideoUrl }: Props) {
     }
 
     function removeVideo() {
-        if (!confirm('Aankondigingsvideo verwijderen?')) {
+        if (!confirm('Delete announcement video?')) {
             return;
         }
 
@@ -31,7 +31,7 @@ export default function DashboardAnnouncement({ announcementVideoUrl }: Props) {
 
     return (
         <>
-            <Head title="Aankondiging" />
+            <Head title="Announcement" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 {flash?.success ? (
                     <p className="rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-700 dark:text-green-300">
@@ -40,9 +40,9 @@ export default function DashboardAnnouncement({ announcementVideoUrl }: Props) {
                 ) : null}
 
                 <div className="max-w-3xl rounded-xl border border-sidebar-border/70 p-4 dark:border-sidebar-border">
-                    <h1 className="font-medium">Aankondigingsvideo</h1>
+                    <h1 className="font-medium">Announcement video</h1>
                     <p className="mt-1 text-sm text-muted-foreground">
-                        Vervang de vaste update bovenaan de publieke pagina.
+                        Replace the pinned update at the top of the public page.
                     </p>
 
                     {announcementVideoUrl ? (
@@ -57,17 +57,17 @@ export default function DashboardAnnouncement({ announcementVideoUrl }: Props) {
                                 onClick={removeVideo}
                                 className="inline-flex h-10 items-center rounded-md border border-red-500/40 px-4 text-sm text-red-600 hover:bg-red-500/10 dark:text-red-300"
                             >
-                                Video verwijderen
+                                Delete video
                             </button>
                         </div>
                     ) : (
-                        <p className="mt-6 text-sm text-muted-foreground">Nog geen video geplaatst.</p>
+                        <p className="mt-6 text-sm text-muted-foreground">No video uploaded yet.</p>
                     )}
 
                     <form onSubmit={submit} className="mt-6 flex flex-wrap items-end gap-4">
                         <label className="block">
                             <span className="mb-2 block text-sm text-muted-foreground">
-                                Nieuw bestand
+                                New file
                             </span>
                             <input
                                 type="file"
@@ -83,7 +83,7 @@ export default function DashboardAnnouncement({ announcementVideoUrl }: Props) {
                             disabled={form.processing}
                             className="inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground disabled:opacity-60"
                         >
-                            Uploaden
+                            Upload
                         </button>
                     </form>
                     {form.errors.video ? (
@@ -99,6 +99,6 @@ export default function DashboardAnnouncement({ announcementVideoUrl }: Props) {
 DashboardAnnouncement.layout = {
     breadcrumbs: [
         { title: 'Dashboard', href: dashboard() },
-        { title: 'Aankondiging', href: '/dashboard/announcement' },
+        { title: 'Announcement', href: '/dashboard/announcement' },
     ],
 };

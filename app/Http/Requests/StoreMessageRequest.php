@@ -32,14 +32,13 @@ class StoreMessageRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'media.required' => 'Kies een video- of spraakbestand.',
-            'media.file' => 'Het bestand kon niet worden geüpload. Probeer opnieuw.',
-            'media.uploaded' => 'Het bestand is te groot voor de server (max. 50 MB). Kies een korter of gecomprimeerd bestand.',
-            'media.max' => 'Het bestand mag maximaal 50 MB zijn.',
-            'media.mimetypes' => 'Enkel video (mp4, webm, mov) of audio (mp3, wav, ogg) is toegelaten.',
-            'segment.required' => 'Kies een rubriek.',
-            'segment.in' => 'Deze rubriek is niet geldig.',
+            'media.required' => 'Choose a video or voice file.',
+            'media.file' => 'The file could not be uploaded. Please try again.',
+            'media.uploaded' => 'The file is too large for the server (max. 50 MB). Choose a shorter or compressed file.',
+            'media.max' => 'The file may be at most 50 MB.',
+            'media.mimetypes' => 'Only video (mp4, webm, mov) or audio (mp3, wav, ogg) is allowed.',
+            'segment.required' => 'Choose a segment.',
+            'segment.in' => 'This segment is not valid.',
         ];
     }
 }
-

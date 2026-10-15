@@ -44,7 +44,7 @@ export function MessageForm({ segments }: Props) {
             <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
                 <label className="block sm:col-span-2">
                     <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
-                        Rubriek *
+                        Segment *
                     </span>
                     <select
                         value={form.data.segment}
@@ -64,7 +64,7 @@ export function MessageForm({ segments }: Props) {
 
                 <label className="block sm:col-span-2">
                     <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
-                        Video- of spraakbestand *
+                        Video or voice file *
                     </span>
                     <input
                         type="file"
@@ -81,7 +81,7 @@ export function MessageForm({ segments }: Props) {
 
                 <label className="block">
                     <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
-                        Jouw naam
+                        Your name
                     </span>
                     <input
                         value={form.data.name}
@@ -92,7 +92,7 @@ export function MessageForm({ segments }: Props) {
 
                 <label className="block">
                     <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
-                        Afdeling
+                        Department
                     </span>
                     <input
                         value={form.data.department}
@@ -107,11 +107,10 @@ export function MessageForm({ segments }: Props) {
                         disabled={form.processing}
                         className="inline-flex h-12 items-center justify-center border border-[var(--onair-green)] px-8 font-medium text-[var(--onair-green)] transition hover:bg-[var(--onair-green)] hover:text-[var(--onair-ink)] disabled:opacity-60"
                     >
-                        {form.processing ? 'Uploaden…' : 'Boodschap versturen'}
+                        {form.processing ? 'Uploading…' : 'Send message'}
                     </button>
                 </div>
             </form>
         </div>
     );
 }
-

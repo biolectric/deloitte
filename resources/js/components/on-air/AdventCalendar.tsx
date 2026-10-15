@@ -41,14 +41,14 @@ export function AdventCalendar({ doors }: Props) {
             {active ? (
                 <div className="mt-6 border border-white/15 bg-black/30 p-6 animate-in fade-in duration-300">
                     <p className="text-xs uppercase tracking-[0.2em] text-[var(--onair-green)]">
-                        Dag {active.day}
+                        Day {active.day}
                     </p>
                     <h3 className="mt-2 font-display text-3xl text-white">{active.title}</h3>
                     <p className="mt-3 max-w-2xl text-white/70">{active.body}</p>
                 </div>
             ) : (
                 <p className="mt-6 text-white/45">
-                    Klik een geopend vakje om de activiteit van die dag te zien.
+                    Click an unlocked door to see that day&apos;s activity.
                 </p>
             )}
         </div>

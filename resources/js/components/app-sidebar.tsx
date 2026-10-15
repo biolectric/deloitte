@@ -30,22 +30,22 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'Verzoeknummers',
+        title: 'Song requests',
         href: '/dashboard/songs',
         icon: Music2,
     },
     {
-        title: 'Boodschappen',
+        title: 'Messages',
         href: '/dashboard/messages',
         icon: MessageSquareText,
     },
     {
-        title: 'Aankondiging',
+        title: 'Announcement',
         href: '/dashboard/announcement',
         icon: Video,
     },
     {
-        title: 'Adventskalender',
+        title: 'Advent calendar',
         href: '/dashboard/advent',
         icon: CalendarDays,
     },
@@ -53,7 +53,7 @@ const mainNavItems: NavItem[] = [
 
 const footerNavItems: NavItem[] = [
     {
-        title: 'Publieke site',
+        title: 'Public site',
         href: '/',
         icon: ExternalLink,
     },

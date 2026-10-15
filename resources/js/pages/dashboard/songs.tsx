@@ -20,7 +20,7 @@ export default function DashboardSongs({ songs }: Props) {
 
     return (
         <>
-            <Head title="Verzoeknummers" />
+            <Head title="Song requests" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 {flash?.success ? (
                     <p className="rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-700 dark:text-green-300">
@@ -30,9 +30,9 @@ export default function DashboardSongs({ songs }: Props) {
 
                 <div className="rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <div className="border-b border-border px-4 py-3">
-                        <h1 className="font-medium">Verzoeknummers ({songs.length})</h1>
+                        <h1 className="font-medium">Song requests ({songs.length})</h1>
                         <p className="text-sm text-muted-foreground">
-                            Verwijder inzendingen die niet in de uitzending mogen.
+                            Remove submissions that should not appear in the broadcast.
                         </p>
                     </div>
                     <ul className="divide-y divide-border px-4">
@@ -44,7 +44,7 @@ export default function DashboardSongs({ songs }: Props) {
                                     </p>
                                     <p className="text-sm text-muted-foreground">
                                         {[song.name, song.department].filter(Boolean).join(' · ') ||
-                                            'Anoniem'}
+                                            'Anonymous'}
                                         {song.reason ? ` · “${song.reason}”` : ''}
                                     </p>
                                 </div>
@@ -57,12 +57,12 @@ export default function DashboardSongs({ songs }: Props) {
                                     }
                                     className="shrink-0 text-sm text-red-600 hover:underline dark:text-red-300"
                                 >
-                                    Verwijderen
+                                    Delete
                                 </button>
                             </li>
                         ))}
                         {songs.length === 0 ? (
-                            <li className="py-8 text-sm text-muted-foreground">Geen verzoeken.</li>
+                            <li className="py-8 text-sm text-muted-foreground">No requests.</li>
                         ) : null}
                     </ul>
                 </div>
@@ -74,6 +74,6 @@ export default function DashboardSongs({ songs }: Props) {
 DashboardSongs.layout = {
     breadcrumbs: [
         { title: 'Dashboard', href: dashboard() },
-        { title: 'Verzoeknummers', href: '/dashboard/songs' },
+        { title: 'Song requests', href: '/dashboard/songs' },
     ],
 };

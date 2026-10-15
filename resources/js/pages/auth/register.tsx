@@ -5,14 +5,14 @@ import { login } from '@/routes';
 export default function Register() {
     return (
         <>
-            <Head title="Registratie uitgeschakeld" />
+            <Head title="Registration disabled" />
             <div className="flex flex-col gap-4 text-center">
                 <p className="text-muted-foreground">
-                    Publieke registratie is uitgeschakeld. Redactieaccounts worden
-                    intern aangemaakt.
+                    Public registration is disabled. Editorial accounts are
+                    created internally.
                 </p>
                 <TextLink href={login()} className="mx-auto">
-                    Naar login
+                    Go to login
                 </TextLink>
             </div>
         </>
@@ -20,6 +20,6 @@ export default function Register() {
 }
 
 Register.layout = {
-    title: 'Registratie',
-    description: 'Alleen voor redactie',
+    title: 'Registration',
+    description: 'Editorial only',
 };

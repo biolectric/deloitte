@@ -23,6 +23,6 @@ class SongRequestController extends Controller
     {
         $songRequest->delete();
 
-        return back()->with('success', 'Verzoek verwijderd.');
+        return back()->with('success', 'Request deleted.');
     }
 }

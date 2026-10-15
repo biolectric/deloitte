@@ -7,7 +7,7 @@ export function AnnouncementPlayer({ url }: Props) {
         return (
             <div className="flex aspect-video w-full items-center justify-center border border-white/10 bg-black/40">
                 <p className="max-w-sm px-6 text-center text-white/50">
-                    De aankondigingsvideo verschijnt hier zodra de redactie die plaatst.
+                    The announcement video will appear here once editorial uploads it.
                 </p>
             </div>
         );
@@ -21,7 +21,7 @@ export function AnnouncementPlayer({ url }: Props) {
             className="aspect-video w-full bg-black object-cover"
             src={url}
         >
-            Je browser ondersteunt geen video.
+            Your browser does not support video.
         </video>
     );
 }

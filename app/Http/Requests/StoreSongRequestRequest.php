@@ -31,9 +31,8 @@ class StoreSongRequestRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => 'Vul een titel in.',
-            'artist.required' => 'Vul een artiest in.',
+            'title.required' => 'Please enter a title.',
+            'artist.required' => 'Please enter an artist.',
         ];
     }
 }
-

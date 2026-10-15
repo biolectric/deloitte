@@ -79,7 +79,7 @@ export default function OnAirHome({
 
     return (
         <div className="on-air-page min-h-screen bg-[var(--onair-ink)] text-white">
-            <Head title="Deloitte On Air — Verzoeklijn" />
+            <Head title="Deloitte On Air — Request Line" />
 
             <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between px-6 py-5 lg:px-10">
                 <p className="text-xs uppercase tracking-[0.28em] text-white/60">
@@ -88,11 +88,11 @@ export default function OnAirHome({
                 <div className="flex items-center gap-4 text-sm">
                     {canAdmin || auth?.user?.is_admin ? (
                         <Link href="/dashboard" className="text-[var(--onair-green)] hover:underline">
-                            Beheer
+                            Admin
                         </Link>
                     ) : (
                         <Link href="/login" className="text-white/50 hover:text-white">
-                            Redactie login
+                            Editorial login
                         </Link>
                     )}
 
@@ -116,29 +116,29 @@ export default function OnAirHome({
                             </p>
                         </div>
                         <h1 className="mt-5 max-w-3xl text-xl font-medium leading-snug text-white sm:mt-6 sm:text-3xl">
-                            Stuur je nummer in — de verzoeklijn bouwt live mee aan de uitzending.
+                            Send in your song — the request line builds the broadcast live.
                         </h1>
                         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/65 sm:mt-4 sm:text-base">
-                            Eén link, vier stappen naar The Year-End Review. Songs voeden Deloitte
-                            Wrapped; boodschappen landen in de rubrieken.
+                            One link, four steps to The Year-End Review. Songs feed Deloitte
+                            Wrapped; messages land in the segments.
                         </p>
                         <div className="mt-6 flex w-full flex-col gap-3 sm:mt-8 sm:w-auto sm:flex-row sm:flex-wrap">
                             <a
                                 href="#verzoek"
                                 className="inline-flex h-12 items-center justify-center bg-[var(--onair-green)] px-6 font-medium text-[var(--onair-ink)] transition hover:brightness-110"
                             >
-                                Nummer aanvragen
+                                Request a song
                             </a>
                             <a
                                 href="#boodschap"
                                 className="inline-flex h-12 items-center justify-center border border-white/25 px-6 font-medium text-white transition hover:border-[var(--onair-green)] hover:text-[var(--onair-green)]"
                             >
-                                Boodschap sturen
+                                Send a message
                             </a>
                         </div>
                         <div className="mt-10 sm:mt-12">
                             <p className="mb-4 text-xs uppercase tracking-[0.22em] text-white/45">
-                                Aftellen tot 24 december
+                                Countdown to 24 December
                             </p>
                             <Countdown target={broadcastAt} />
                         </div>
@@ -149,40 +149,40 @@ export default function OnAirHome({
                             {stats.song_count}
                         </p>
                         <p className="mt-2 text-xs uppercase tracking-[0.22em] text-white/55">
-                            nummers live
+                            songs live
                         </p>
                     </div>
 
                 </div>
             </section>
 
-            <Section id="update" eyebrow="Vaste update" title="Aankondigingsvideo">
+            <Section id="update" eyebrow="Pinned update" title="Announcement video">
                 <AnnouncementPlayer url={announcementVideoUrl} />
             </Section>
 
             <Section
                 id="verzoek"
-                eyebrow="Verzoekformulier"
-                title="Welk nummer moet erin?"
-                intro="Titel en artiest zijn verplicht. Naam, afdeling en reden mag je leeg laten."
+                eyebrow="Song request"
+                title="Which song should make it in?"
+                intro="Title and artist are required. Name, department and reason are optional."
             >
                 <SongForm />
             </Section>
 
             <Section
                 id="wachtrij"
-                eyebrow="Live wachtrij"
-                title="Zojuist binnengekomen"
-                intro="Elk verzoek verschijnt meteen voor iedereen — zonder herladen."
+                eyebrow="Live queue"
+                title="Just in"
+                intro="Every request appears instantly for everyone — no reload needed."
             >
                 <LiveQueue songs={songs} />
             </Section>
 
             <Section
                 id="boodschap"
-                eyebrow="Video & spraak"
-                title="Boodschap voor de rubrieken"
-                intro="Lost in Translation, The Green Line of Out of Office 2027."
+                eyebrow="Video & voice"
+                title="Message for the segments"
+                intro="Lost in Translation, The Green Line or Out of Office 2027."
             >
                 <MessageForm segments={segments} />
             </Section>
@@ -190,34 +190,34 @@ export default function OnAirHome({
 
             <Section
                 id="cijfers"
-                eyebrow="Leuke cijfers"
-                title="Uit de echte inzendingen"
-                intro="Geen verzonnen getallen — live berekend."
+                eyebrow="Fun stats"
+                title="From real submissions"
+                intro="No made-up numbers — calculated live."
             >
                 <StatsStrip stats={stats} />
             </Section>
 
             <Section
                 id="advent"
-                eyebrow="Adventskalender"
-                title="24 vakjes tot de uitzending"
-                intro="Elke dag in december opent een activiteit. Dag 24 is Deloitte On Air zelf."
+                eyebrow="Advent calendar"
+                title="24 doors until the broadcast"
+                intro="Each day in December unlocks an activity. Day 24 is Deloitte On Air itself."
             >
                 <AdventCalendar doors={adventDoors} />
             </Section>
 
             <Section
                 id="hoe"
-                eyebrow="Hoe het werkt"
-                title="Eén link, vier stappen naar de uitzending"
+                eyebrow="How it works"
+                title="One link, four steps to the broadcast"
             >
                 <HowItWorks />
             </Section>
 
             <footer className="border-t border-white/10 px-6 py-10 text-sm text-white/40 lg:px-10">
                 <div className="mx-auto flex max-w-6xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                    <p>Deloitte On Air — Verzoeklijn</p>
-                    <p>The Year-End Review · 24 december 2026</p>
+                    <p>Deloitte On Air — Request Line</p>
+                    <p>The Year-End Review · 24 December 2026</p>
                 </div>
             </footer>
         </div>
@@ -257,4 +257,3 @@ function Section({
         </section>
     );
 }
-

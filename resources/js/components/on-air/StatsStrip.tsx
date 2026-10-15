@@ -7,23 +7,23 @@ type Props = {
 export function StatsStrip({ stats }: Props) {
     const items = [
         {
-            label: 'Populairste nummer',
+            label: 'Most requested song',
             value: stats.popular_song
                 ? `${stats.popular_song.title} — ${stats.popular_song.artist}`
-                : 'Nog te bepalen',
-            meta: stats.popular_song ? `${stats.popular_song.count}× aangevraagd` : null,
+                : 'Still to be decided',
+            meta: stats.popular_song ? `${stats.popular_song.count}× requested` : null,
         },
         {
-            label: 'Drukste afdeling',
-            value: stats.busiest_department?.department ?? 'Nog te bepalen',
+            label: 'Busiest department',
+            value: stats.busiest_department?.department ?? 'Still to be decided',
             meta: stats.busiest_department
-                ? `${stats.busiest_department.count} verzoeken`
+                ? `${stats.busiest_department.count} requests`
                 : null,
         },
         {
-            label: 'Boodschappen',
+            label: 'Messages',
             value: String(stats.message_count),
-            meta: 'video & spraak',
+            meta: 'video & voice',
         },
     ];
 

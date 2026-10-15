@@ -42,8 +42,8 @@ export function Countdown({ target }: Props) {
     }, [target]);
 
     const cells: Array<{ label: string; value: number }> = [
-        { label: 'dagen', value: parts.days },
-        { label: 'uur', value: parts.hours },
+        { label: 'days', value: parts.days },
+        { label: 'hrs', value: parts.hours },
         { label: 'min', value: parts.minutes },
         { label: 'sec', value: parts.seconds },
     ];
