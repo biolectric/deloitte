@@ -16,7 +16,6 @@ class MessageController extends Controller
         $path = $file->store('messages', 'public');
 
         Message::query()->create([
-            'segment' => $request->validated('segment'),
             'media_path' => $path,
             'media_type' => $mediaType,
             'name' => $request->validated('name'),
@@ -24,6 +23,5 @@ class MessageController extends Controller
         ]);
 
         return back()->with('message_success', 'Your message has been received.');
-
     }
 }

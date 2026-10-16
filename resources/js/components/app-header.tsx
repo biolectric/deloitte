@@ -12,7 +12,6 @@ import {
 
 import AppLogo from '@/components/app-logo';
 import { Breadcrumbs } from '@/components/breadcrumbs';
-import { logoUrl } from '@/lib/brand';
 
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -121,12 +120,9 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                     Navigation menu
                                 </SheetTitle>
                                 <SheetHeader className="flex justify-start text-left">
-                                    <img
-                                        src={logoUrl}
-                                        alt="Deloitte On Air"
-                                        className="h-8 w-auto object-contain object-left"
-                                    />
-
+                                    <span className="truncate text-sm font-semibold">
+                                        {page.props.name}
+                                    </span>
                                 </SheetHeader>
                                 <div className="flex h-full flex-1 flex-col space-y-4 p-4">
                                     <div className="flex h-full flex-col justify-between text-sm">

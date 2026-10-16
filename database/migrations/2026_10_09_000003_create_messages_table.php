@@ -10,15 +10,12 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->string('segment');
             $table->string('media_path');
             $table->string('media_type');
             $table->string('name')->nullable();
             $table->string('department')->nullable();
             $table->timestamps();
             $table->softDeletes();
-
-            $table->index('segment');
         });
     }
 

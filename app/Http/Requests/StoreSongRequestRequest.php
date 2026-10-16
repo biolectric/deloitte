@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Support\Departments;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreSongRequestRequest extends FormRequest
 {
@@ -20,7 +22,7 @@ class StoreSongRequestRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'artist' => ['required', 'string', 'max:255'],
             'name' => ['nullable', 'string', 'max:255'],
-            'department' => ['nullable', 'string', 'max:255'],
+            'department' => ['nullable', 'string', Rule::in(Departments::all())],
             'reason' => ['nullable', 'string', 'max:500'],
         ];
     }
@@ -33,6 +35,7 @@ class StoreSongRequestRequest extends FormRequest
         return [
             'title.required' => 'Please enter a title.',
             'artist.required' => 'Please enter an artist.',
+            'department.in' => 'Choose a department from the list.',
         ];
     }
 }

@@ -29,7 +29,6 @@ class DashboardController extends Controller
                 ->get()
                 ->map(fn (Message $message) => [
                     'id' => $message->id,
-                    'segment' => $message->segment,
                     'media_type' => $message->media_type,
                     'name' => $message->name,
                     'department' => $message->department,
@@ -39,7 +38,8 @@ class DashboardController extends Controller
                 ? Storage::disk('public')->url($announcementPath)
                 : null,
             'adventDoorsCount' => AdventDoor::query()->count(),
-            'broadcastAt' => Setting::getValue(Setting::BROADCAST_AT, '2026-12-24T18:00:00+01:00'),
+            'broadcastAt' => Setting::getValue(Setting::BROADCAST_AT, '2026-12-01T18:00:00+01:00'),
+
         ]);
     }
 }

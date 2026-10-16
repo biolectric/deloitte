@@ -19,7 +19,6 @@ class MessageController extends Controller
                 ->get()
                 ->map(fn (Message $message) => [
                     'id' => $message->id,
-                    'segment' => $message->segment,
                     'media_type' => $message->media_type,
                     'media_url' => $message->mediaUrl(),
                     'name' => $message->name,

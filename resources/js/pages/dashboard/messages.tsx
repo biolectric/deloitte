@@ -3,7 +3,6 @@ import { dashboard } from '@/routes';
 
 type Message = {
     id: number;
-    segment: string;
     media_type: string;
     media_url: string;
     name: string | null;
@@ -32,16 +31,14 @@ export default function DashboardMessages({ messages }: Props) {
                     <div className="border-b border-border px-4 py-3">
                         <h1 className="font-medium">Messages ({messages.length})</h1>
                         <p className="text-sm text-muted-foreground">
-                            Video and voice messages for the segments.
+                            Video and voice compliment messages.
                         </p>
                     </div>
                     <ul className="divide-y divide-border px-4">
                         {messages.map((message) => (
                             <li key={message.id} className="flex items-start justify-between gap-4 py-4">
                                 <div className="min-w-0">
-                                    <p className="font-medium capitalize">
-                                        {message.segment.replaceAll('_', ' ')} · {message.media_type}
-                                    </p>
+                                    <p className="font-medium capitalize">{message.media_type} message</p>
                                     <p className="text-sm text-muted-foreground">
                                         {[message.name, message.department].filter(Boolean).join(' · ') ||
                                             'Anonymous'}

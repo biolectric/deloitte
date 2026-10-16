@@ -24,11 +24,6 @@ export type AdventDoorItem = {
     unlocked: boolean;
 };
 
-export type SegmentOption = {
-    value: string;
-    label: string;
-};
-
 export type LiveFeedResponse = {
     songs: SongRequestItem[];
     stats: OnAirStats;

@@ -2,9 +2,13 @@ import type { OnAirStats } from '@/types/on-air';
 
 type Props = {
     stats: OnAirStats;
+    className?: string;
 };
 
-export function StatsStrip({ stats }: Props) {
+export function StatsStrip({
+    stats,
+    className = 'grid gap-8 md:grid-cols-3',
+}: Props) {
     const items = [
         {
             label: 'Most requested song',
@@ -28,13 +32,13 @@ export function StatsStrip({ stats }: Props) {
     ];
 
     return (
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className={className}>
             {items.map((item) => (
-                <div key={item.label}>
+                <div key={item.label} className="min-w-0">
                     <p className="text-xs uppercase tracking-[0.22em] text-[var(--onair-green)]">
                         {item.label}
                     </p>
-                    <p className="mt-3 font-display text-3xl leading-tight text-white">
+                    <p className="mt-3 font-display text-2xl leading-tight break-words text-white sm:text-3xl">
                         {item.value}
                     </p>
                     {item.meta ? (

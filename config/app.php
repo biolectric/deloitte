@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Deloitte On Air'),
+    'name' => env('APP_NAME', 'Tune-in: Christmas special'),
+
 
 
     /*

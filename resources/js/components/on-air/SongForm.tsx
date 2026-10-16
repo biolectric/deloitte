@@ -1,6 +1,8 @@
 import { FormEvent } from 'react';
 import { useForm, usePage } from '@inertiajs/react';
 
+import { DEPARTMENTS } from '@/lib/departments';
+
 export function SongForm() {
     const { flash } = usePage().props as {
         flash?: { song_success?: string | null };
@@ -50,12 +52,34 @@ export function SongForm() {
                     error={form.errors.name}
                     onChange={(value) => form.setData('name', value)}
                 />
-                <Field
-                    label="Department"
-                    value={form.data.department}
-                    error={form.errors.department}
-                    onChange={(value) => form.setData('department', value)}
-                />
+                <label className="block">
+                    <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
+                        Department
+                    </span>
+                    <select
+                        value={form.data.department}
+                        onChange={(event) => form.setData('department', event.target.value)}
+                        className="h-12 w-full border border-white/15 bg-black/30 px-4 text-white outline-none transition focus:border-[var(--onair-green)]"
+                    >
+                        <option value="" className="bg-[var(--onair-ink)]">
+                            Select department
+                        </option>
+                        {DEPARTMENTS.map((department) => (
+                            <option
+                                key={department}
+                                value={department}
+                                className="bg-[var(--onair-ink)]"
+                            >
+                                {department}
+                            </option>
+                        ))}
+                    </select>
+                    {form.errors.department ? (
+                        <span className="mt-1 block text-sm text-red-300">
+                            {form.errors.department}
+                        </span>
+                    ) : null}
+                </label>
                 <div className="sm:col-span-2">
                     <Field
                         label="Short reason"

@@ -12,7 +12,6 @@ return [
     'mimetypes' => ':Attribute moet een bestand zijn van het type: :values.',
     'attributes' => [
         'media' => 'video- of spraakbestand',
-        'segment' => 'rubriek',
         'title' => 'titel',
         'artist' => 'artiest',
         'name' => 'naam',

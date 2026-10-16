@@ -55,7 +55,10 @@ export function Countdown({ target }: Props) {
             suppressHydrationWarning
         >
             {cells.map((cell) => (
-                <div key={cell.label} className="min-w-0 sm:min-w-[4.5rem]">
+                <div
+                    key={cell.label}
+                    className="min-w-0 rounded-xl border border-[var(--onair-green)]/20 bg-black/20 px-3 py-3 sm:min-w-[4.5rem] sm:px-4"
+                >
                     <p
                         className={`font-display text-3xl leading-none text-white tabular-nums sm:text-5xl ${
                             ready ? '' : 'opacity-40'

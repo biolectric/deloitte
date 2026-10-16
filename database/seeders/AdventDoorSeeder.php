@@ -30,7 +30,7 @@ class AdventDoorSeeder extends Seeder
             18 => ['Trivia warm-up', 'Answer the Deloitte trivia of the day on Teams.'],
             19 => ['Dress rehearsal', 'Pick your On Air look for 24 December.'],
             20 => ['Final song push', 'One more request — the queue is almost full.'],
-            21 => ['Message marathon', 'Fill the segments Lost in Translation, Green Line or OOO.'],
+            21 => ['Message marathon', 'Send a warm compliment message for a teammate.'],
             22 => ['Countdown check', 'Share the site link in your team chat.'],
             23 => ['Eve of Air', 'Final moderation check: review the live queue.'],
             24 => ['Deloitte On Air live', 'The Year-End Review — tune in and enjoy.'],

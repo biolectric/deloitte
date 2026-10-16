@@ -1,22 +1,18 @@
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import { useForm, usePage } from '@inertiajs/react';
-import type { SegmentOption } from '@/types/on-air';
 
-type Props = {
-    segments: SegmentOption[];
-};
+import { DEPARTMENTS } from '@/lib/departments';
 
-export function MessageForm({ segments }: Props) {
+export function MessageForm() {
     const { flash } = usePage().props as {
         flash?: { message_success?: string | null };
     };
+    const [fileInputKey, setFileInputKey] = useState(0);
     const form = useForm<{
-        segment: string;
         media: File | null;
         name: string;
         department: string;
     }>({
-        segment: segments[0]?.value ?? 'lost_in_translation',
         media: null,
         name: '',
         department: '',
@@ -29,6 +25,7 @@ export function MessageForm({ segments }: Props) {
             preserveScroll: true,
             onSuccess: () => {
                 form.reset('media', 'name', 'department');
+                setFileInputKey((key) => key + 1);
             },
         });
     }
@@ -44,29 +41,10 @@ export function MessageForm({ segments }: Props) {
             <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
                 <label className="block sm:col-span-2">
                     <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
-                        Segment *
-                    </span>
-                    <select
-                        value={form.data.segment}
-                        onChange={(event) => form.setData('segment', event.target.value)}
-                        className="h-12 w-full border border-white/15 bg-black/30 px-4 text-white outline-none focus:border-[var(--onair-green)]"
-                    >
-                        {segments.map((segment) => (
-                            <option key={segment.value} value={segment.value} className="bg-[var(--onair-ink)]">
-                                {segment.label}
-                            </option>
-                        ))}
-                    </select>
-                    {form.errors.segment ? (
-                        <span className="mt-1 block text-sm text-red-300">{form.errors.segment}</span>
-                    ) : null}
-                </label>
-
-                <label className="block sm:col-span-2">
-                    <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
                         Video or voice file *
                     </span>
                     <input
+                        key={fileInputKey}
                         type="file"
                         accept="video/*,audio/*"
                         onChange={(event) =>
@@ -94,11 +72,29 @@ export function MessageForm({ segments }: Props) {
                     <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
                         Department
                     </span>
-                    <input
+                    <select
                         value={form.data.department}
                         onChange={(event) => form.setData('department', event.target.value)}
                         className="h-12 w-full border border-white/15 bg-black/30 px-4 text-white outline-none focus:border-[var(--onair-green)]"
-                    />
+                    >
+                        <option value="" className="bg-[var(--onair-ink)]">
+                            Select department
+                        </option>
+                        {DEPARTMENTS.map((department) => (
+                            <option
+                                key={department}
+                                value={department}
+                                className="bg-[var(--onair-ink)]"
+                            >
+                                {department}
+                            </option>
+                        ))}
+                    </select>
+                    {form.errors.department ? (
+                        <span className="mt-1 block text-sm text-red-300">
+                            {form.errors.department}
+                        </span>
+                    ) : null}
                 </label>
 
                 <div className="sm:col-span-2">

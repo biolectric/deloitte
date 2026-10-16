@@ -13,7 +13,6 @@ type Song = {
 
 type Message = {
     id: number;
-    segment: string;
     media_type: string;
     name: string | null;
     department: string | null;
@@ -107,7 +106,7 @@ export default function Dashboard({
                                 <li key={message.id} className="flex items-start justify-between gap-3 py-3">
                                     <div className="min-w-0">
                                         <p className="truncate font-medium capitalize">
-                                            {message.segment.replaceAll('_', ' ')} · {message.media_type}
+                                            {message.media_type} message
                                         </p>
                                         <p className="text-sm text-muted-foreground">
                                             {[message.name, message.department]

@@ -1,3 +1,3 @@
-import logoUrl from '../../img/logo.png';
+import logoUrl from '../../img/original-logo.jpg';
 
 export { logoUrl };

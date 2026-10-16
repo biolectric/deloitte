@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\SongRequest;
+use App\Support\Departments;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,7 +22,7 @@ class SongRequestFactory extends Factory
             'title' => fake()->sentence(3),
             'artist' => fake()->name(),
             'name' => fake()->optional()->firstName(),
-            'department' => fake()->optional()->randomElement(['Audit', 'Tax', 'Consulting', 'Risk', 'Finance']),
+            'department' => fake()->optional()->randomElement(Departments::all()),
             'reason' => fake()->optional()->sentence(),
         ];
     }
