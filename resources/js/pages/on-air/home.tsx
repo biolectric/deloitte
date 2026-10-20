@@ -9,12 +9,13 @@ import { FestiveAtmosphere } from '@/components/on-air/FestiveAtmosphere';
 import { MessageForm } from '@/components/on-air/MessageForm';
 import { NextSectionButton } from '@/components/on-air/NextSectionButton';
 import { SongForm } from '@/components/on-air/SongForm';
-import { StatsStrip } from '@/components/on-air/StatsStrip';
+import { WishForm } from '@/components/on-air/WishForm';
 import { logoUrl } from '@/lib/brand';
 import type { AdventDoorItem, LiveFeedResponse, OnAirStats } from '@/types/on-air';
 
 type Props = {
     stats: OnAirStats;
+    viewerCount: number;
     announcementVideoUrl: string | null;
     broadcastAt: string;
     adventDoors: AdventDoorItem[];
@@ -23,11 +24,15 @@ type Props = {
 
 const sectionLinks = [
     { href: '#update', label: 'Announcement' },
+    { href: '#verzoek', label: 'Request a song', primary: true },
+    { href: '#boodschap', label: 'Send a message' },
+    { href: '#wensen', label: 'Christmas wishes' },
     { href: '#advent', label: 'Advent' },
-];
+] as const;
 
 export default function OnAirHome({
     stats: initialStats,
+    viewerCount: initialViewerCount,
     announcementVideoUrl,
     broadcastAt,
     adventDoors,
@@ -38,10 +43,12 @@ export default function OnAirHome({
     };
 
     const [stats, setStats] = useState(initialStats);
+    const [viewerCount, setViewerCount] = useState(initialViewerCount);
 
     useEffect(() => {
         setStats(initialStats);
-    }, [initialStats]);
+        setViewerCount(initialViewerCount);
+    }, [initialStats, initialViewerCount]);
 
     useEffect(() => {
         let active = true;
@@ -50,17 +57,20 @@ export default function OnAirHome({
             try {
                 const response = await fetch('/live', {
                     headers: { Accept: 'application/json' },
+                    credentials: 'same-origin',
                 });
                 if (!response.ok || !active) {
                     return;
                 }
                 const data = (await response.json()) as LiveFeedResponse;
                 setStats(data.stats);
+                setViewerCount(data.viewer_count);
             } catch {
                 // Keep last known state if polling fails.
             }
         };
 
+        void poll();
         const id = window.setInterval(poll, 3000);
         return () => {
             active = false;
@@ -92,7 +102,7 @@ export default function OnAirHome({
 
             <section id="hero" className="relative z-10 overflow-hidden scroll-mt-20">
                 <div className="relative mx-auto flex max-w-7xl flex-col justify-center px-5 pb-12 pt-28 sm:px-6 sm:pb-16 sm:pt-32 lg:min-h-[100svh] lg:px-10 lg:pt-28">
-                    <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.55fr)_minmax(0,0.85fr)] lg:gap-10">
+                    <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,1.55fr)_minmax(0,0.85fr)] lg:gap-10">
                         <div className="min-w-0">
                             <div className="flex flex-col items-start gap-4 sm:flex-row sm:flex-nowrap sm:items-center sm:gap-6">
                                 <img
@@ -110,23 +120,15 @@ export default function OnAirHome({
                             </h1>
 
                             <div className="mt-6 flex flex-wrap items-center gap-2 sm:mt-8 sm:gap-3">
-                                <a
-                                    href="#verzoek"
-                                    className="inline-flex h-11 items-center justify-center rounded-full bg-[var(--onair-green)] px-5 text-sm font-medium text-[var(--onair-ink)] shadow-[0_0_24px_rgba(134,188,37,0.35)] transition hover:brightness-110 sm:h-12 sm:px-6 sm:text-base"
-                                >
-                                    Request a song
-                                </a>
-                                <a
-                                    href="#boodschap"
-                                    className="inline-flex h-11 items-center justify-center rounded-full border border-white/25 px-5 text-sm font-medium text-white transition hover:border-[var(--onair-green)] hover:text-[var(--onair-green)] sm:h-12 sm:px-6 sm:text-base"
-                                >
-                                    Send a message
-                                </a>
                                 {sectionLinks.map((link) => (
                                     <a
                                         key={link.href}
                                         href={link.href}
-                                        className="inline-flex h-11 items-center justify-center rounded-full border border-white/15 bg-white/5 px-4 text-sm text-white/80 transition hover:border-[var(--onair-green)]/50 hover:bg-[var(--onair-green)]/10 hover:text-white sm:h-12 sm:px-5"
+                                        className={
+                                            'primary' in link && link.primary
+                                                ? 'inline-flex h-11 items-center justify-center rounded-full bg-[var(--onair-green)] px-5 text-sm font-medium text-[var(--onair-ink)] shadow-[0_0_24px_rgba(134,188,37,0.35)] transition hover:brightness-110 sm:h-12 sm:px-6 sm:text-base'
+                                                : 'inline-flex h-11 items-center justify-center rounded-full border border-white/15 bg-white/5 px-4 text-sm text-white/80 transition hover:border-[var(--onair-green)]/50 hover:bg-[var(--onair-green)]/10 hover:text-white sm:h-12 sm:px-5'
+                                        }
                                     >
                                         {link.label}
                                     </a>
@@ -134,32 +136,27 @@ export default function OnAirHome({
                             </div>
                         </div>
 
-                        <div className="justify-self-center text-center lg:justify-self-end lg:text-right">
-                            <p className="mb-6 max-w-xs text-base leading-relaxed text-white/70 lg:ml-auto lg:text-lg">
-                                Your songs and messages power the Christmas radioshow.
-                            </p>
+                        <div className="justify-self-center pb-1 text-center lg:justify-self-end lg:text-right">
                             <p className="font-display text-6xl leading-none text-[var(--onair-green)] tabular-nums drop-shadow-[0_0_28px_rgba(134,188,37,0.45)] sm:text-7xl lg:text-8xl">
-                                {stats.song_count}
+                                {stats.submission_count}
                             </p>
                             <p className="mt-2 text-xs uppercase tracking-[0.22em] text-white/55">
-                                songs live
+                                submissions
+                            </p>
+                            <p className="mt-4 font-display text-3xl leading-none text-white/90 tabular-nums sm:text-4xl">
+                                {viewerCount}
+                            </p>
+                            <p className="mt-1.5 text-xs uppercase tracking-[0.22em] text-white/45">
+                                watching now
                             </p>
                         </div>
                     </div>
 
-                    <div className="mt-12 grid items-end gap-10 lg:mt-16 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.55fr)] lg:gap-12">
-                        <div>
-                            <p className="mb-4 text-xs uppercase tracking-[0.22em] text-white/45">
-                                Countdown to 1 December
-                            </p>
-                            <Countdown target={broadcastAt} />
-                        </div>
-                        <div className="rounded-2xl border border-[var(--onair-green)]/20 bg-black/25 px-6 py-6 backdrop-blur-sm sm:px-8 sm:py-7">
-                            <StatsStrip
-                                stats={stats}
-                                className="grid gap-8 sm:grid-cols-3 sm:gap-10 lg:gap-14"
-                            />
-                        </div>
+                    <div className="mt-12 lg:mt-16">
+                        <p className="mb-4 text-xs uppercase tracking-[0.22em] text-white/45">
+                            Countdown to 1 December
+                        </p>
+                        <Countdown target={broadcastAt} />
                     </div>
                 </div>
             </section>
@@ -176,7 +173,7 @@ export default function OnAirHome({
                 id="verzoek"
                 eyebrow="Song request"
                 title="What song do you want to hear in the T&L Tune in?"
-                intro="Title and artist are required. Name, department and reason are optional."
+                intro="Title and artist are required. Full name, department and reason are optional."
             >
                 <SongForm />
             </Section>
@@ -185,9 +182,18 @@ export default function OnAirHome({
                 id="boodschap"
                 eyebrow="Compliments"
                 title="Compliment your team your way"
-                intro="Send in a message and make them feel warm."
+                intro="Send a video/voice file or a verse — you don’t need both."
             >
                 <MessageForm />
+            </Section>
+
+            <Section
+                id="wensen"
+                eyebrow="Christmas wishes"
+                title="Share your Christmas wish"
+                intro="Send a video/voice file or a wish — you don’t need both. Full name is required."
+            >
+                <WishForm />
             </Section>
 
             <Section
@@ -196,7 +202,7 @@ export default function OnAirHome({
                 title="24 doors until the broadcast"
                 intro="Each day in December unlocks an activity. Day 1 is the radioshow itself."
             >
-                <AdventCalendar doors={adventDoors} />
+                <AdventCalendar doors={adventDoors} previewMode={canAdmin} />
             </Section>
 
             <footer className="relative z-10 border-t border-[var(--onair-green)]/15 px-6 py-10 text-sm text-white/40 lg:px-10">

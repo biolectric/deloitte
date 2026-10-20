@@ -3,8 +3,9 @@ import { dashboard } from '@/routes';
 
 type Message = {
     id: number;
-    media_type: string;
-    media_url: string;
+    media_type: string | null;
+    media_url: string | null;
+    body: string | null;
     name: string | null;
     department: string | null;
     created_at: string;
@@ -31,26 +32,35 @@ export default function DashboardMessages({ messages }: Props) {
                     <div className="border-b border-border px-4 py-3">
                         <h1 className="font-medium">Messages ({messages.length})</h1>
                         <p className="text-sm text-muted-foreground">
-                            Video and voice compliment messages.
+                            Compliment messages — video, voice or verse.
                         </p>
                     </div>
                     <ul className="divide-y divide-border px-4">
                         {messages.map((message) => (
                             <li key={message.id} className="flex items-start justify-between gap-4 py-4">
                                 <div className="min-w-0">
-                                    <p className="font-medium capitalize">{message.media_type} message</p>
+                                    <p className="font-medium capitalize">
+                                        {message.media_type
+                                            ? `${message.media_type} message`
+                                            : 'Verse'}
+                                    </p>
                                     <p className="text-sm text-muted-foreground">
                                         {[message.name, message.department].filter(Boolean).join(' · ') ||
                                             'Anonymous'}
                                     </p>
-                                    <a
-                                        href={message.media_url}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="mt-1 inline-block text-sm text-primary hover:underline"
-                                    >
-                                        Open file
-                                    </a>
+                                    {message.body ? (
+                                        <p className="mt-2 whitespace-pre-wrap text-sm">{message.body}</p>
+                                    ) : null}
+                                    {message.media_url ? (
+                                        <a
+                                            href={message.media_url}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="mt-1 inline-block text-sm text-primary hover:underline"
+                                        >
+                                            Open file
+                                        </a>
+                                    ) : null}
                                 </div>
                                 <button
                                     type="button"

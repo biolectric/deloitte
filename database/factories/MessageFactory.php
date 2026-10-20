@@ -23,6 +23,7 @@ class MessageFactory extends Factory
             'media_type' => fake()->randomElement(['video', 'audio']),
             'name' => fake()->optional()->firstName(),
             'department' => fake()->optional()->randomElement(Departments::all()),
+            'body' => null,
         ];
     }
 }

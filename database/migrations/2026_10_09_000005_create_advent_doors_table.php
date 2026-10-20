@@ -13,6 +13,8 @@ return new class extends Migration
             $table->unsignedTinyInteger('day')->unique();
             $table->string('title');
             $table->text('body');
+            $table->string('media_path')->nullable();
+            $table->string('media_type')->nullable();
             $table->date('unlock_date');
             $table->timestamps();
         });

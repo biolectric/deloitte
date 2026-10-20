@@ -50,7 +50,7 @@ export function Countdown({ target }: Props) {
 
     return (
         <div
-            className="grid grid-cols-2 gap-x-4 gap-y-5 sm:flex sm:flex-wrap sm:items-end sm:gap-6"
+            className="flex flex-wrap items-end gap-3 sm:gap-6"
             aria-live="polite"
             suppressHydrationWarning
         >

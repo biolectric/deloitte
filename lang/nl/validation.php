@@ -14,7 +14,7 @@ return [
         'media' => 'video- of spraakbestand',
         'title' => 'titel',
         'artist' => 'artiest',
-        'name' => 'naam',
+        'name' => 'volledige naam',
         'department' => 'afdeling',
         'reason' => 'reden',
         'video' => 'video',

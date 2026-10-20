@@ -9,10 +9,10 @@
 
 @theme {
     --font-sans:
-        'Outfit', ui-sans-serif, system-ui, sans-serif,
+        'Open Sans', ui-sans-serif, system-ui, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
-    --font-display: 'Bebas Neue', 'Arial Narrow', Impact, sans-serif;
+    --font-display: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);

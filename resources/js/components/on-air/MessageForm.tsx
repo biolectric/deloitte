@@ -10,10 +10,12 @@ export function MessageForm() {
     const [fileInputKey, setFileInputKey] = useState(0);
     const form = useForm<{
         media: File | null;
+        body: string;
         name: string;
         department: string;
     }>({
         media: null,
+        body: '',
         name: '',
         department: '',
     });
@@ -24,7 +26,7 @@ export function MessageForm() {
             forceFormData: true,
             preserveScroll: true,
             onSuccess: () => {
-                form.reset('media', 'name', 'department');
+                form.reset('media', 'body', 'name', 'department');
                 setFileInputKey((key) => key + 1);
             },
         });
@@ -38,10 +40,15 @@ export function MessageForm() {
                 </p>
             ) : null}
 
+            <p className="text-sm text-white/55">
+                Send a video/voice file <span className="text-white/80">or</span> a verse — you
+                don’t need both.
+            </p>
+
             <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
                 <label className="block sm:col-span-2">
                     <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
-                        Video or voice file *
+                        Video or voice file
                     </span>
                     <input
                         key={fileInputKey}
@@ -57,9 +64,25 @@ export function MessageForm() {
                     ) : null}
                 </label>
 
+                <label className="block sm:col-span-2">
+                    <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
+                        Verse
+                    </span>
+                    <textarea
+                        value={form.data.body}
+                        onChange={(event) => form.setData('body', event.target.value)}
+                        rows={4}
+                        placeholder="Write a verse if you’re not uploading a file"
+                        className="w-full border border-white/15 bg-black/30 px-4 py-3 text-white outline-none focus:border-[var(--onair-green)]"
+                    />
+                    {form.errors.body ? (
+                        <span className="mt-1 block text-sm text-red-300">{form.errors.body}</span>
+                    ) : null}
+                </label>
+
                 <label className="block">
                     <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
-                        Your name
+                        Full name
                     </span>
                     <input
                         value={form.data.name}

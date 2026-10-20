@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdventDoor;
+use App\Models\ChristmasWish;
 use App\Models\Message;
 use App\Models\Setting;
 use App\Models\SongRequest;
@@ -19,6 +20,7 @@ class DashboardController extends Controller
 
         return Inertia::render('dashboard', [
             'stats' => $stats->summary(),
+            'wishCount' => ChristmasWish::query()->count(),
             'latestSongs' => SongRequest::query()
                 ->latest()
                 ->limit(5)
@@ -34,12 +36,21 @@ class DashboardController extends Controller
                     'department' => $message->department,
                     'created_at' => $message->created_at,
                 ]),
+            'latestWishes' => ChristmasWish::query()
+                ->latest()
+                ->limit(5)
+                ->get()
+                ->map(fn (ChristmasWish $wish) => [
+                    'id' => $wish->id,
+                    'media_type' => $wish->media_type,
+                    'name' => $wish->name,
+                    'created_at' => $wish->created_at,
+                ]),
             'announcementVideoUrl' => $announcementPath
                 ? Storage::disk('public')->url($announcementPath)
                 : null,
             'adventDoorsCount' => AdventDoor::query()->count(),
             'broadcastAt' => Setting::getValue(Setting::BROADCAST_AT, '2026-12-01T18:00:00+01:00'),
-
         ]);
     }
 }

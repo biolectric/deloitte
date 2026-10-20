@@ -47,7 +47,7 @@ export function SongForm() {
                     required
                 />
                 <Field
-                    label="Your name"
+                    label="Full name"
                     value={form.data.name}
                     error={form.errors.name}
                     onChange={(value) => form.setData('name', value)}

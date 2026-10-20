@@ -21,6 +21,7 @@ class MessageController extends Controller
                     'id' => $message->id,
                     'media_type' => $message->media_type,
                     'media_url' => $message->mediaUrl(),
+                    'body' => $message->body,
                     'name' => $message->name,
                     'department' => $message->department,
                     'created_at' => $message->created_at,
@@ -30,7 +31,9 @@ class MessageController extends Controller
 
     public function destroy(Message $message): RedirectResponse
     {
-        Storage::disk('public')->delete($message->media_path);
+        if ($message->media_path) {
+            Storage::disk('public')->delete($message->media_path);
+        }
         $message->delete();
 
         return back()->with('success', 'Message deleted.');
