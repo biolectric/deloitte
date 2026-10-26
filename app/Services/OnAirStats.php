@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\ChristmasWish;
 use App\Models\Message;
 use App\Models\SongRequest;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +12,6 @@ class OnAirStats
      * @return array{
      *     song_count: int,
      *     message_count: int,
-     *     wish_count: int,
      *     submission_count: int,
      *     popular_song: array{title: string, artist: string, count: int}|null,
      *     busiest_department: array{department: string, count: int}|null
@@ -23,7 +21,6 @@ class OnAirStats
     {
         $songCount = SongRequest::query()->count();
         $messageCount = Message::query()->count();
-        $wishCount = ChristmasWish::query()->count();
 
         $popular = SongRequest::query()
             ->select('title', 'artist', DB::raw('count(*) as aggregate'))
@@ -42,8 +39,7 @@ class OnAirStats
         return [
             'song_count' => $songCount,
             'message_count' => $messageCount,
-            'wish_count' => $wishCount,
-            'submission_count' => $songCount + $messageCount + $wishCount,
+            'submission_count' => $songCount + $messageCount,
             'popular_song' => $popular ? [
                 'title' => $popular->title,
                 'artist' => $popular->artist,

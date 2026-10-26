@@ -13,6 +13,7 @@
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
     --font-display: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-accent: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -148,6 +149,10 @@
 
 .font-display {
     font-family: var(--font-display);
+}
+
+.font-accent {
+    font-family: var(--font-accent);
 }
 
 .on-air-page {

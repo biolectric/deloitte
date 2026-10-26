@@ -35,6 +35,6 @@ class ChristmasWishController extends Controller
         }
         $wish->delete();
 
-        return back()->with('success', 'Christmas wish deleted.');
+        return back()->with('success', 'Holiday wish deleted.');
     }
 }

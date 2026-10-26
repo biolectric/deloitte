@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdventDoor;
-use App\Models\ChristmasWish;
 use App\Models\Message;
 use App\Models\Setting;
 use App\Models\SongRequest;
 use App\Services\OnAirStats;
+use App\Support\MessageTypes;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -20,7 +20,6 @@ class DashboardController extends Controller
 
         return Inertia::render('dashboard', [
             'stats' => $stats->summary(),
-            'wishCount' => ChristmasWish::query()->count(),
             'latestSongs' => SongRequest::query()
                 ->latest()
                 ->limit(5)
@@ -31,20 +30,15 @@ class DashboardController extends Controller
                 ->get()
                 ->map(fn (Message $message) => [
                     'id' => $message->id,
+                    'type' => $message->type,
+                    'type_label' => $message->type
+                        ? MessageTypes::label($message->type)
+                        : 'Message',
                     'media_type' => $message->media_type,
                     'name' => $message->name,
+                    'nominee' => $message->nominee,
                     'department' => $message->department,
                     'created_at' => $message->created_at,
-                ]),
-            'latestWishes' => ChristmasWish::query()
-                ->latest()
-                ->limit(5)
-                ->get()
-                ->map(fn (ChristmasWish $wish) => [
-                    'id' => $wish->id,
-                    'media_type' => $wish->media_type,
-                    'name' => $wish->name,
-                    'created_at' => $wish->created_at,
                 ]),
             'announcementVideoUrl' => $announcementPath
                 ? Storage::disk('public')->url($announcementPath)

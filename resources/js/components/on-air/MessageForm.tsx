@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react';
 import { useForm, usePage } from '@inertiajs/react';
 
 import { DEPARTMENTS } from '@/lib/departments';
+import { MESSAGE_TYPES, type MessageTypeValue } from '@/lib/message-types';
 
 export function MessageForm() {
     const { flash } = usePage().props as {
@@ -9,16 +10,23 @@ export function MessageForm() {
     };
     const [fileInputKey, setFileInputKey] = useState(0);
     const form = useForm<{
+        type: MessageTypeValue | '';
         media: File | null;
         body: string;
         name: string;
+        nominee: string;
         department: string;
     }>({
+        type: '',
         media: null,
         body: '',
         name: '',
+        nominee: '',
         department: '',
     });
+
+    const selectedType = MESSAGE_TYPES.find((item) => item.value === form.data.type);
+    const isPersonOfTheYear = form.data.type === 'person_of_the_year';
 
     function submit(event: FormEvent) {
         event.preventDefault();
@@ -26,7 +34,7 @@ export function MessageForm() {
             forceFormData: true,
             preserveScroll: true,
             onSuccess: () => {
-                form.reset('media', 'body', 'name', 'department');
+                form.reset('type', 'media', 'body', 'name', 'nominee', 'department');
                 setFileInputKey((key) => key + 1);
             },
         });
@@ -41,38 +49,108 @@ export function MessageForm() {
             ) : null}
 
             <p className="text-sm text-white/55">
-                Send a video/voice file <span className="text-white/80">or</span> a verse — you
-                don’t need both.
+                Choose the kind of message you want to send, then add a video/voice file{' '}
+                <span className="text-white/80">or</span> write your own text — you don’t need
+                both.
             </p>
 
             <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
                 <label className="block sm:col-span-2">
                     <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
-                        Video or voice file
+                        Message type *
                     </span>
-                    <input
-                        key={fileInputKey}
-                        type="file"
-                        accept="video/*,audio/*"
+                    <select
+                        value={form.data.type}
                         onChange={(event) =>
-                            form.setData('media', event.target.files?.[0] ?? null)
+                            form.setData('type', event.target.value as MessageTypeValue | '')
                         }
-                        className="w-full border border-white/15 bg-black/30 px-4 py-3 text-sm text-white file:mr-4 file:border-0 file:bg-[var(--onair-green)] file:px-3 file:py-1.5 file:text-[var(--onair-ink)]"
-                    />
-                    {form.errors.media ? (
-                        <span className="mt-1 block text-sm text-red-300">{form.errors.media}</span>
+                        className="h-12 w-full border border-white/15 bg-black/30 px-4 text-white outline-none focus:border-[var(--onair-green)]"
+                    >
+                        <option value="" className="bg-[var(--onair-ink)]">
+                            What would you like to share?
+                        </option>
+                        {MESSAGE_TYPES.map((item) => (
+                            <option
+                                key={item.value}
+                                value={item.value}
+                                className="bg-[var(--onair-ink)]"
+                            >
+                                {item.label}
+                            </option>
+                        ))}
+                    </select>
+                    {form.errors.type ? (
+                        <span className="mt-1 block text-sm text-red-300">{form.errors.type}</span>
                     ) : null}
                 </label>
 
+                {selectedType ? (
+                    <div className="sm:col-span-2 border border-white/10 bg-black/20 px-4 py-3">
+                        <p className="text-sm text-white/70">{selectedType.hint}</p>
+                        {'prompts' in selectedType && selectedType.prompts ? (
+                            <ul className="mt-3 space-y-1.5 text-sm text-white/50">
+                                {selectedType.prompts.map((prompt) => (
+                                    <li key={prompt}>— {prompt}</li>
+                                ))}
+                            </ul>
+                        ) : null}
+                    </div>
+                ) : null}
+
+                {isPersonOfTheYear ? (
+                    <label className="block sm:col-span-2">
+                        <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
+                            Nominee *
+                        </span>
+                        <input
+                            value={form.data.nominee}
+                            onChange={(event) => form.setData('nominee', event.target.value)}
+                            placeholder="Who are you nominating?"
+                            className="h-12 w-full border border-white/15 bg-black/30 px-4 text-white outline-none focus:border-[var(--onair-green)]"
+                        />
+                        {form.errors.nominee ? (
+                            <span className="mt-1 block text-sm text-red-300">
+                                {form.errors.nominee}
+                            </span>
+                        ) : null}
+                    </label>
+                ) : null}
+
+                {!isPersonOfTheYear ? (
+                    <label className="block sm:col-span-2">
+                        <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
+                            Video or voice file
+                        </span>
+                        <input
+                            key={fileInputKey}
+                            type="file"
+                            accept="video/*,audio/*"
+                            onChange={(event) =>
+                                form.setData('media', event.target.files?.[0] ?? null)
+                            }
+                            className="w-full border border-white/15 bg-black/30 px-4 py-3 text-sm text-white file:mr-4 file:border-0 file:bg-[var(--onair-green)] file:px-3 file:py-1.5 file:text-[var(--onair-ink)]"
+                        />
+                        {form.errors.media ? (
+                            <span className="mt-1 block text-sm text-red-300">
+                                {form.errors.media}
+                            </span>
+                        ) : null}
+                    </label>
+                ) : null}
+
                 <label className="block sm:col-span-2">
                     <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
-                        Verse
+                        {isPersonOfTheYear ? 'Why are you nominating them? *' : 'Your message'}
                     </span>
                     <textarea
                         value={form.data.body}
                         onChange={(event) => form.setData('body', event.target.value)}
-                        rows={4}
-                        placeholder="Write a verse if you’re not uploading a file"
+                        rows={isPersonOfTheYear ? 4 : 5}
+                        placeholder={
+                            isPersonOfTheYear
+                                ? 'Write a short message about why they deserve it'
+                                : 'Write freely — inspiration above is optional'
+                        }
                         className="w-full border border-white/15 bg-black/30 px-4 py-3 text-white outline-none focus:border-[var(--onair-green)]"
                     />
                     {form.errors.body ? (
@@ -82,18 +160,21 @@ export function MessageForm() {
 
                 <label className="block">
                     <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
-                        Full name
+                        Full name *
                     </span>
                     <input
                         value={form.data.name}
                         onChange={(event) => form.setData('name', event.target.value)}
                         className="h-12 w-full border border-white/15 bg-black/30 px-4 text-white outline-none focus:border-[var(--onair-green)]"
                     />
+                    {form.errors.name ? (
+                        <span className="mt-1 block text-sm text-red-300">{form.errors.name}</span>
+                    ) : null}
                 </label>
 
                 <label className="block">
                     <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
-                        Department
+                        Offering portfolio
                     </span>
                     <select
                         value={form.data.department}
@@ -101,7 +182,7 @@ export function MessageForm() {
                         className="h-12 w-full border border-white/15 bg-black/30 px-4 text-white outline-none focus:border-[var(--onair-green)]"
                     >
                         <option value="" className="bg-[var(--onair-ink)]">
-                            Select department
+                            Select offering portfolio
                         </option>
                         {DEPARTMENTS.map((department) => (
                             <option

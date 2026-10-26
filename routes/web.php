@@ -2,10 +2,8 @@
 
 use App\Http\Controllers\Admin\AdventDoorController as AdminAdventDoorController;
 use App\Http\Controllers\Admin\AnnouncementController;
-use App\Http\Controllers\Admin\ChristmasWishController as AdminChristmasWishController;
 use App\Http\Controllers\Admin\MessageController as AdminMessageController;
 use App\Http\Controllers\Admin\SongRequestController as AdminSongRequestController;
-use App\Http\Controllers\ChristmasWishController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LiveFeedController;
@@ -24,10 +22,6 @@ Route::post('/messages', [MessageController::class, 'store'])
     ->middleware('throttle:10,1')
     ->name('messages.store');
 
-Route::post('/wishes', [ChristmasWishController::class, 'store'])
-    ->middleware('throttle:10,1')
-    ->name('wishes.store');
-
 Route::redirect('/admin', '/dashboard');
 
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
@@ -38,9 +32,6 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
     Route::get('dashboard/messages', [AdminMessageController::class, 'index'])->name('dashboard.messages');
     Route::delete('dashboard/messages/{message}', [AdminMessageController::class, 'destroy'])->name('dashboard.messages.destroy');
-
-    Route::get('dashboard/wishes', [AdminChristmasWishController::class, 'index'])->name('dashboard.wishes');
-    Route::delete('dashboard/wishes/{wish}', [AdminChristmasWishController::class, 'destroy'])->name('dashboard.wishes.destroy');
 
     Route::get('dashboard/announcement', [AnnouncementController::class, 'edit'])->name('dashboard.announcement');
     Route::post('dashboard/announcement', [AnnouncementController::class, 'update'])->name('dashboard.announcement.update');

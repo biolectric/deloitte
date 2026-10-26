@@ -41,7 +41,7 @@ export function ChristmasLights({ className = '' }: Props) {
 
     return (
         <div
-            className={`pointer-events-none fixed inset-x-0 top-0 z-40 overflow-hidden ${className}`}
+            className={`pointer-events-none inset-x-0 top-0 overflow-hidden ${className}`}
             aria-hidden
         >
             <svg

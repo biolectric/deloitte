@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMessageRequest;
 use App\Models\Message;
+use App\Support\MessageTypes;
 use Illuminate\Http\RedirectResponse;
 
 class MessageController extends Controller
@@ -12,8 +13,9 @@ class MessageController extends Controller
     {
         $path = null;
         $mediaType = null;
+        $type = $request->validated('type');
 
-        if ($request->hasFile('media')) {
+        if ($request->hasFile('media') && $type !== MessageTypes::PERSON_OF_THE_YEAR) {
             $file = $request->file('media');
             $mime = $file->getMimeType() ?? '';
             $mediaType = str_starts_with($mime, 'audio/') ? 'audio' : 'video';
@@ -24,8 +26,12 @@ class MessageController extends Controller
             'media_path' => $path,
             'media_type' => $mediaType,
             'name' => $request->validated('name'),
+            'nominee' => $type === MessageTypes::PERSON_OF_THE_YEAR
+                ? $request->validated('nominee')
+                : null,
             'department' => $request->validated('department'),
             'body' => $request->validated('body'),
+            'type' => $type,
         ]);
 
         return back()->with('message_success', 'Your message has been received.');

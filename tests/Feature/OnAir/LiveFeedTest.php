@@ -21,7 +21,6 @@ test('live feed returns songs and stats', function () {
     $response->assertOk()
         ->assertJsonPath('stats.song_count', 2)
         ->assertJsonPath('stats.message_count', 1)
-        ->assertJsonPath('stats.wish_count', 0)
         ->assertJsonPath('stats.submission_count', 3)
         ->assertJsonPath('stats.popular_song.title', 'Africa')
         ->assertJsonPath('stats.busiest_department.department', 'Audit')

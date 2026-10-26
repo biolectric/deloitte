@@ -21,7 +21,7 @@ export default function DashboardAdvent({ adventDoors }: Props) {
 
     return (
         <>
-            <Head title="Advent calendar" />
+            <Head title="Countdown calendar" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 {flash?.success ? (
                     <p className="rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-700 dark:text-green-300">
@@ -30,7 +30,7 @@ export default function DashboardAdvent({ adventDoors }: Props) {
                 ) : null}
 
                 <div>
-                    <h1 className="font-medium">Advent calendar</h1>
+                    <h1 className="font-medium">Countdown calendar</h1>
                     <p className="mt-1 text-sm text-muted-foreground">
                         Edit the title, text and optional image or video for each door.
                     </p>
@@ -181,6 +181,6 @@ function AdventEditor({ door }: { door: AdventDoor }) {
 DashboardAdvent.layout = {
     breadcrumbs: [
         { title: 'Dashboard', href: dashboard() },
-        { title: 'Advent calendar', href: '/dashboard/advent' },
+        { title: 'Countdown calendar', href: '/dashboard/advent' },
     ],
 };

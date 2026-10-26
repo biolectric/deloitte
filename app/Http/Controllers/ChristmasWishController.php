@@ -27,6 +27,6 @@ class ChristmasWishController extends Controller
             'body' => $request->validated('body'),
         ]);
 
-        return back()->with('wish_success', 'Your Christmas wish has been received.');
+        return back()->with('wish_success', 'Your holiday wish has been received.');
     }
 }

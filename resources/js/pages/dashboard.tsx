@@ -13,16 +13,12 @@ type Song = {
 
 type Message = {
     id: number;
+    type: string | null;
+    type_label: string;
     media_type: string | null;
     name: string | null;
+    nominee: string | null;
     department: string | null;
-    created_at: string;
-};
-
-type Wish = {
-    id: number;
-    media_type: string | null;
-    name: string;
     created_at: string;
 };
 
@@ -35,10 +31,8 @@ type Stats = {
 
 type Props = {
     stats: Stats;
-    wishCount: number;
     latestSongs: Song[];
     latestMessages: Message[];
-    latestWishes: Wish[];
     announcementVideoUrl: string | null;
     adventDoorsCount: number;
     broadcastAt: string;
@@ -46,10 +40,8 @@ type Props = {
 
 export default function Dashboard({
     stats,
-    wishCount,
     latestSongs,
     latestMessages,
-    latestWishes,
     announcementVideoUrl,
     adventDoorsCount,
     broadcastAt,
@@ -66,12 +58,11 @@ export default function Dashboard({
                     </p>
                 ) : null}
 
-                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
                     <StatCard label="Song requests" value={String(stats.song_count)} href="/dashboard/songs" />
                     <StatCard label="Messages" value={String(stats.message_count)} href="/dashboard/messages" />
-                    <StatCard label="Christmas wishes" value={String(wishCount)} href="/dashboard/wishes" />
                     <StatCard
-                        label="Advent doors"
+                        label="Countdown doors"
                         value={String(adventDoorsCount)}
                         href="/dashboard/advent"
                     />
@@ -117,35 +108,18 @@ export default function Dashboard({
                             {latestMessages.map((message) => (
                                 <li key={message.id} className="flex items-start justify-between gap-3 py-3">
                                     <div className="min-w-0">
-                                        <p className="truncate font-medium capitalize">
-                                            {message.media_type
-                                                ? `${message.media_type} message`
-                                                : 'Verse'}
-                                        </p>
+                                        <p className="truncate font-medium">{message.type_label}</p>
                                         <p className="text-sm text-muted-foreground">
-                                            {[message.name, message.department]
+                                            {[
+                                                message.nominee
+                                                    ? `Nominee: ${message.nominee}`
+                                                    : null,
+                                                message.name,
+                                                message.department,
+                                            ]
                                                 .filter(Boolean)
                                                 .join(' · ') || 'Anonymous'}
                                         </p>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    </Panel>
-
-                    <Panel
-                        title="Latest Christmas wishes"
-                        href="/dashboard/wishes"
-                        empty={latestWishes.length === 0}
-                    >
-                        <ul className="divide-y divide-border">
-                            {latestWishes.map((wish) => (
-                                <li key={wish.id} className="flex items-start justify-between gap-3 py-3">
-                                    <div className="min-w-0">
-                                        <p className="truncate font-medium capitalize">
-                                            {wish.media_type ? `${wish.media_type} wish` : 'Wish'}
-                                        </p>
-                                        <p className="text-sm text-muted-foreground">{wish.name}</p>
                                     </div>
                                 </li>
                             ))}
@@ -187,7 +161,7 @@ export default function Dashboard({
                                 </dd>
                             </div>
                             <div>
-                                <dt className="text-muted-foreground">Busiest department</dt>
+                                <dt className="text-muted-foreground">Busiest offering portfolio</dt>
                                 <dd className="mt-1 font-medium">
                                     {stats.busiest_department
                                         ? `${stats.busiest_department.department} (${stats.busiest_department.count})`

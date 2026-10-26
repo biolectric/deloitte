@@ -35,7 +35,7 @@ class StoreSongRequestRequest extends FormRequest
         return [
             'title.required' => 'Please enter a title.',
             'artist.required' => 'Please enter an artist.',
-            'department.in' => 'Choose a department from the list.',
+            'department.in' => 'Choose an offering portfolio from the list.',
         ];
     }
 }

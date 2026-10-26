@@ -6,7 +6,7 @@ import AppLayout from '@/layouts/app-layout';
 import AuthLayout from '@/layouts/auth-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Tune-in: Christmas special';
+const appName = import.meta.env.VITE_APP_NAME || 'T&L Tune In';
 
 void createInertiaApp({
     title: (title) =>

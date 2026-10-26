@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Support\Departments;
+use App\Support\MessageTypes;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
@@ -20,9 +21,21 @@ class StoreMessageRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'type' => ['required', 'string', Rule::in(MessageTypes::all())],
             'media' => ['nullable', 'file', 'max:51200', 'mimetypes:video/mp4,video/webm,video/quicktime,audio/mpeg,audio/mp4,audio/webm,audio/wav,audio/x-wav,audio/ogg'],
-            'body' => ['nullable', 'string', 'max:5000'],
-            'name' => ['nullable', 'string', 'max:255'],
+            'body' => [
+                Rule::requiredIf($this->input('type') === MessageTypes::PERSON_OF_THE_YEAR),
+                'nullable',
+                'string',
+                'max:5000',
+            ],
+            'name' => ['required', 'string', 'max:255'],
+            'nominee' => [
+                Rule::requiredIf($this->input('type') === MessageTypes::PERSON_OF_THE_YEAR),
+                'nullable',
+                'string',
+                'max:255',
+            ],
             'department' => ['nullable', 'string', Rule::in(Departments::all())],
         ];
     }
@@ -30,13 +43,17 @@ class StoreMessageRequest extends FormRequest
     public function withValidator(Validator $validator): void
     {
         $validator->after(function (Validator $validator): void {
+            if ($this->input('type') === MessageTypes::PERSON_OF_THE_YEAR) {
+                return;
+            }
+
             $hasMedia = $this->hasFile('media');
             $hasBody = filled($this->input('body'));
 
             if (! $hasMedia && ! $hasBody) {
                 $validator->errors()->add(
                     'media',
-                    'Send a video/voice file or a verse — you don’t need both.',
+                    'Send a video/voice file or a written message — you don’t need both.',
                 );
             }
         });
@@ -48,11 +65,16 @@ class StoreMessageRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'type.required' => 'Choose what kind of message you want to send.',
+            'type.in' => 'Choose a message type from the list.',
+            'name.required' => 'Enter your full name.',
+            'nominee.required' => 'Enter the name of the person you want to nominate.',
+            'body.required' => 'Write a short message explaining why you nominate this person.',
             'media.file' => 'The file could not be uploaded. Please try again.',
             'media.uploaded' => 'The file is too large for the server (max. 50 MB). Choose a shorter or compressed file.',
             'media.max' => 'The file may be at most 50 MB.',
             'media.mimetypes' => 'Only video (mp4, webm, mov) or audio (mp3, wav, ogg) is allowed.',
-            'department.in' => 'Choose a department from the list.',
+            'department.in' => 'Choose an offering portfolio from the list.',
         ];
     }
 }

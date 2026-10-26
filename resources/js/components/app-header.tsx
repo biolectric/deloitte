@@ -2,7 +2,6 @@ import { Link, usePage } from '@inertiajs/react';
 import {
     CalendarDays,
     ExternalLink,
-    Gift,
     LayoutGrid,
     Menu,
     MessageSquareText,
@@ -68,17 +67,12 @@ const mainNavItems: NavItem[] = [
         icon: MessageSquareText,
     },
     {
-        title: 'Christmas wishes',
-        href: '/dashboard/wishes',
-        icon: Gift,
-    },
-    {
         title: 'Announcement',
         href: '/dashboard/announcement',
         icon: Video,
     },
     {
-        title: 'Advent calendar',
+        title: 'Countdown calendar',
         href: '/dashboard/advent',
         icon: CalendarDays,
     },

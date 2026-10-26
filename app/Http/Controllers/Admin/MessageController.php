@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Message;
+use App\Support\MessageTypes;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -19,10 +20,15 @@ class MessageController extends Controller
                 ->get()
                 ->map(fn (Message $message) => [
                     'id' => $message->id,
+                    'type' => $message->type,
+                    'type_label' => $message->type
+                        ? MessageTypes::label($message->type)
+                        : 'Message',
                     'media_type' => $message->media_type,
                     'media_url' => $message->mediaUrl(),
                     'body' => $message->body,
                     'name' => $message->name,
+                    'nominee' => $message->nominee,
                     'department' => $message->department,
                     'created_at' => $message->created_at,
                 ]),

@@ -11,7 +11,7 @@ class AdventDoorSeeder extends Seeder
     {
         $activities = [
             1 => ['Warm-up playlist', 'Share your favourite December song and set the tone for the month.'],
-            2 => ['Coffee chat', 'Schedule a short coffee with someone from another department.'],
+            2 => ['Coffee chat', 'Schedule a short coffee with someone from another offering portfolio.'],
             3 => ['Throwback Thursday', 'Send an old team photo to editorial.'],
             4 => ['Karaoke warm-up', 'Practise one verse — it might end up in Wrapped.'],
             5 => ['Green Line tip', 'Share a sustainability tip for The Green Line.'],

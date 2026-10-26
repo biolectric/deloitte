@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Tune-in: Christmas special'),
+    'name' => env('APP_NAME', 'T&L Tune In'),
 
 
 

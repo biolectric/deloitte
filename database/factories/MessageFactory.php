@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Message;
 use App\Support\Departments;
+use App\Support\MessageTypes;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,6 +25,7 @@ class MessageFactory extends Factory
             'name' => fake()->optional()->firstName(),
             'department' => fake()->optional()->randomElement(Departments::all()),
             'body' => null,
+            'type' => fake()->randomElement(MessageTypes::all()),
         ];
     }
 }

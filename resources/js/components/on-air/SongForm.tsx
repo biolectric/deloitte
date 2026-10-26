@@ -54,7 +54,7 @@ export function SongForm() {
                 />
                 <label className="block">
                     <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
-                        Department
+                        Offering portfolio
                     </span>
                     <select
                         value={form.data.department}
@@ -62,7 +62,7 @@ export function SongForm() {
                         className="h-12 w-full border border-white/15 bg-black/30 px-4 text-white outline-none transition focus:border-[var(--onair-green)]"
                     >
                         <option value="" className="bg-[var(--onair-ink)]">
-                            Select department
+                            Select offering portfolio
                         </option>
                         {DEPARTMENTS.map((department) => (
                             <option

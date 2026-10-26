@@ -11,7 +11,6 @@ export type SongRequestItem = {
 export type OnAirStats = {
     song_count: number;
     message_count: number;
-    wish_count: number;
     submission_count: number;
     popular_song: { title: string; artist: string; count: number } | null;
     busiest_department: { department: string; count: number } | null;
