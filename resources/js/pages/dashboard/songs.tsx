@@ -29,11 +29,19 @@ export default function DashboardSongs({ songs }: Props) {
                 ) : null}
 
                 <div className="rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <div className="border-b border-border px-4 py-3">
-                        <h1 className="font-medium">Song requests ({songs.length})</h1>
-                        <p className="text-sm text-muted-foreground">
-                            Remove submissions that should not appear in the broadcast.
-                        </p>
+                    <div className="flex flex-wrap items-start justify-between gap-3 border-b border-border px-4 py-3">
+                        <div>
+                            <h1 className="font-medium">Song requests ({songs.length})</h1>
+                            <p className="text-sm text-muted-foreground">
+                                Remove submissions that should not appear in the broadcast.
+                            </p>
+                        </div>
+                        <a
+                            href="/dashboard/songs/export"
+                            className="shrink-0 rounded-md border border-border px-3 py-2 text-sm font-medium transition hover:bg-muted/50"
+                        >
+                            Download CSV
+                        </a>
                     </div>
                     <ul className="divide-y divide-border px-4">
                         {songs.map((song) => (

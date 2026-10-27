@@ -45,7 +45,9 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function unlockOnAir()
 {
-    // ..
+    return test()->withSession([
+        \App\Http\Middleware\EnsureOnAirEntry::SESSION_KEY => true,
+    ]);
 }

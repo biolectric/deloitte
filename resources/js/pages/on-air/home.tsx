@@ -5,6 +5,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { AdventCalendar } from '@/components/on-air/AdventCalendar';
 import { AnnouncementPlayer } from '@/components/on-air/AnnouncementPlayer';
 import { ChristmasLights } from '@/components/on-air/ChristmasLights';
+import { Countdown } from '@/components/on-air/Countdown';
 import { FestiveAtmosphere } from '@/components/on-air/FestiveAtmosphere';
 import { MessageForm } from '@/components/on-air/MessageForm';
 import { NextSectionButton } from '@/components/on-air/NextSectionButton';
@@ -56,6 +57,7 @@ export default function OnAirHome({
     stats: initialStats,
     viewerCount: initialViewerCount,
     announcementVideoUrl,
+    broadcastAt,
     adventDoors,
     canAdmin,
 }: Props) {
@@ -190,12 +192,8 @@ export default function OnAirHome({
                                         className="size-4 shrink-0 text-[var(--onair-green)]"
                                         aria-hidden
                                     />
-                                    <p>
-                                        <span className="font-medium text-[var(--onair-green)]">
-                                            1 December 2026
-                                        </span>
-                                        <span className="mx-2 text-white/30">/</span>
-                                        Countdown calendar kick-off
+                                    <p className="font-medium text-[var(--onair-green)]">
+                                        1 December 2026
                                     </p>
                                 </div>
                                 <p className="text-xs text-white/45">
@@ -222,14 +220,11 @@ export default function OnAirHome({
                     </div>
 
                     <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-10">
-                        <div className="flex items-center gap-4 border-t border-white/15 py-2.5">
-                            <div className="h-px flex-1 bg-white/15" />
-                            <p className="shrink-0 text-center text-[0.65rem] uppercase tracking-[0.18em] text-white/55 sm:text-xs">
-                                <span className="text-[var(--onair-green)]">— 1 December</span>
-                                <span className="mx-2">•</span>
-                                Countdown calendar kick-off —
+                        <div className="flex flex-col items-center gap-3 border-t border-white/15 py-3 sm:py-4">
+                            <p className="text-[0.65rem] uppercase tracking-[0.18em] text-white/45 sm:text-xs">
+                                Countdown to 1 December
                             </p>
-                            <div className="h-px flex-1 bg-white/15" />
+                            <Countdown target={broadcastAt} />
                         </div>
                     </div>
                 </section>

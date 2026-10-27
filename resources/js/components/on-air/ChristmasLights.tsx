@@ -36,6 +36,19 @@ function wirePath(): string {
     return d;
 }
 
+/** Elongated teardrop / C7 bulb hanging from the wire. */
+function bulbPath(x: number, y: number): string {
+    const neck = y + 3;
+    const tip = y + 22;
+
+    return [
+        `M ${x - 2} ${neck}`,
+        `C ${x - 5} ${neck + 4}, ${x - 5.5} ${neck + 11}, ${x} ${tip}`,
+        `C ${x + 5.5} ${neck + 11}, ${x + 5} ${neck + 4}, ${x + 2} ${neck}`,
+        'Z',
+    ].join(' ');
+}
+
 export function ChristmasLights({ className = '' }: Props) {
     const gap = WIDTH / (BULB_COUNT + 1);
 
@@ -63,14 +76,14 @@ export function ChristmasLights({ className = '' }: Props) {
 
                     return (
                         <g key={index}>
-                            <ellipse
-                                cx={x}
-                                cy={y + 10}
-                                rx="6"
-                                ry="9"
+                            <path
+                                d={bulbPath(x, y)}
                                 fill={color}
                                 className="xmas-bulb"
-                                style={{ animationDelay: `${index * 0.18}s` }}
+                                style={{
+                                    color,
+                                    animationDelay: `${index * 0.18}s`,
+                                }}
                             />
                             <circle cx={x} cy={y} r="2.5" fill="#1a1a1a" />
                         </g>

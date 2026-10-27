@@ -16,7 +16,7 @@ test('live feed returns songs and stats', function () {
     ]);
     Message::factory()->create();
 
-    $response = $this->getJson(route('live'));
+    $response = unlockOnAir()->getJson(route('live'));
 
     $response->assertOk()
         ->assertJsonPath('stats.song_count', 2)

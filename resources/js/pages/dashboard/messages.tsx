@@ -1,4 +1,17 @@
 import { Head, router, usePage } from '@inertiajs/react';
+import { useState } from 'react';
+
+import { Button } from '@/components/ui/button';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { downloadMedia, withExtension } from '@/lib/save-media';
 import { dashboard } from '@/routes';
 
 type Message = {
@@ -7,6 +20,8 @@ type Message = {
     type_label: string;
     media_type: string | null;
     media_url: string | null;
+    media_filename: string | null;
+    has_media: boolean;
     body: string | null;
     name: string | null;
     nominee: string | null;
@@ -20,6 +35,41 @@ type Props = {
 
 export default function DashboardMessages({ messages }: Props) {
     const { flash } = usePage().props as { flash?: { success?: string | null } };
+    const [saveTarget, setSaveTarget] = useState<Message | null>(null);
+    const [filename, setFilename] = useState('');
+    const [downloading, setDownloading] = useState(false);
+
+    function openSaveDialog(message: Message) {
+        setSaveTarget(message);
+        setFilename(message.media_filename ?? 'download');
+    }
+
+    function closeSaveDialog() {
+        if (downloading) {
+            return;
+        }
+        setSaveTarget(null);
+        setFilename('');
+    }
+
+    async function confirmDownload() {
+        if (!saveTarget?.media_filename) {
+            return;
+        }
+
+        const name = withExtension(filename, saveTarget.media_filename);
+        setDownloading(true);
+
+        try {
+            await downloadMedia(`/dashboard/messages/${saveTarget.id}/download`, name);
+            setSaveTarget(null);
+            setFilename('');
+        } catch {
+            window.alert('Could not download the file. Please try again.');
+        } finally {
+            setDownloading(false);
+        }
+    }
 
     return (
         <>
@@ -58,15 +108,24 @@ export default function DashboardMessages({ messages }: Props) {
                                     {message.body ? (
                                         <p className="mt-2 whitespace-pre-wrap text-sm">{message.body}</p>
                                     ) : null}
-                                    {message.media_url ? (
-                                        <a
-                                            href={message.media_url}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="mt-1 inline-block text-sm text-primary hover:underline"
-                                        >
-                                            Open file
-                                        </a>
+                                    {message.has_media ? (
+                                        <div className="mt-2 flex flex-wrap gap-4 text-sm">
+                                            <a
+                                                href={`/dashboard/messages/${message.id}/preview`}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="text-primary hover:underline"
+                                            >
+                                                Open file
+                                            </a>
+                                            <button
+                                                type="button"
+                                                onClick={() => openSaveDialog(message)}
+                                                className="text-primary hover:underline"
+                                            >
+                                                Save as
+                                            </button>
+                                        </div>
                                     ) : null}
                                 </div>
                                 <button
@@ -88,6 +147,58 @@ export default function DashboardMessages({ messages }: Props) {
                     </ul>
                 </div>
             </div>
+
+            <Dialog
+                open={saveTarget !== null}
+                onOpenChange={(open) => {
+                    if (!open) {
+                        closeSaveDialog();
+                    }
+                }}
+            >
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Save as</DialogTitle>
+                        <DialogDescription>
+                            Choose a file name, then download it to your device.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-2">
+                        <label htmlFor="save-filename" className="text-sm font-medium">
+                            File name
+                        </label>
+                        <Input
+                            id="save-filename"
+                            value={filename}
+                            onChange={(event) => setFilename(event.target.value)}
+                            onKeyDown={(event) => {
+                                if (event.key === 'Enter') {
+                                    event.preventDefault();
+                                    void confirmDownload();
+                                }
+                            }}
+                            autoFocus
+                        />
+                    </div>
+                    <DialogFooter>
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={closeSaveDialog}
+                            disabled={downloading}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            type="button"
+                            onClick={() => void confirmDownload()}
+                            disabled={downloading || filename.trim() === ''}
+                        >
+                            {downloading ? 'Downloading…' : 'Download'}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </>
     );
 }

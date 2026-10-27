@@ -84,16 +84,14 @@ export function MessageForm() {
                     ) : null}
                 </label>
 
-                {selectedType ? (
+                {selectedType && 'prompts' in selectedType && selectedType.prompts ? (
                     <div className="sm:col-span-2 border border-white/10 bg-black/20 px-4 py-3">
                         <p className="text-sm text-white/70">{selectedType.hint}</p>
-                        {'prompts' in selectedType && selectedType.prompts ? (
-                            <ul className="mt-3 space-y-1.5 text-sm text-white/50">
-                                {selectedType.prompts.map((prompt) => (
-                                    <li key={prompt}>— {prompt}</li>
-                                ))}
-                            </ul>
-                        ) : null}
+                        <ul className="mt-3 space-y-1.5 text-sm text-white/50">
+                            {selectedType.prompts.map((prompt) => (
+                                <li key={prompt}>— {prompt}</li>
+                            ))}
+                        </ul>
                     </div>
                 ) : null}
 
@@ -147,11 +145,13 @@ export function MessageForm() {
                         onChange={(event) => form.setData('body', event.target.value)}
                         rows={isPersonOfTheYear ? 4 : 5}
                         placeholder={
-                            isPersonOfTheYear
-                                ? 'Write a short message about why they deserve it'
-                                : 'Write freely — inspiration above is optional'
+                            selectedType && !('prompts' in selectedType && selectedType.prompts)
+                                ? selectedType.hint
+                                : selectedType?.prompts
+                                  ? 'Write freely — inspiration above is optional'
+                                  : 'Write your message…'
                         }
-                        className="w-full border border-white/15 bg-black/30 px-4 py-3 text-white outline-none focus:border-[var(--onair-green)]"
+                        className="w-full border border-white/15 bg-black/30 px-4 py-3 text-white outline-none placeholder:text-white/35 focus:border-[var(--onair-green)]"
                     />
                     {form.errors.body ? (
                         <span className="mt-1 block text-sm text-red-300">{form.errors.body}</span>

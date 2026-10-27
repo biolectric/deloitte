@@ -30,6 +30,7 @@ export function AdventCalendar({ doors, previewMode = false }: Props) {
             <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 sm:gap-3">
                 {doors.map((door) => {
                     const isPreviewOnly = door.unlocked && !door.date_unlocked;
+                    const showMedia = door.unlocked && Boolean(door.media_url);
 
                     return (
                         <button
@@ -37,18 +38,46 @@ export function AdventCalendar({ doors, previewMode = false }: Props) {
                             type="button"
                             disabled={!door.unlocked}
                             onClick={() => setOpenDay(door.day)}
-                            className={`aspect-square border p-2 text-left transition ${
+                            className={`relative aspect-square overflow-hidden border text-left transition ${
                                 door.unlocked
-                                    ? 'border-[var(--onair-green)]/50 bg-[var(--onair-green)]/10 text-white hover:bg-[var(--onair-green)]/20'
+                                    ? 'border-[var(--onair-green)]/50 bg-[var(--onair-green)]/10 text-white hover:border-[var(--onair-green)]'
                                     : 'cursor-not-allowed border-white/10 bg-black/30 text-white/25'
                             }`}
                         >
-                            <span className="font-display text-2xl leading-none">{door.day}</span>
-                            {door.unlocked ? (
-                                <span className="mt-2 block truncate text-[0.65rem] uppercase tracking-wider text-white/55">
-                                    {isPreviewOnly ? 'preview' : 'open'}
-                                </span>
+                            {showMedia ? (
+                                <>
+                                    {door.media_type === 'video' ? (
+                                        <video
+                                            src={door.media_url!}
+                                            muted
+                                            playsInline
+                                            loop
+                                            autoPlay
+                                            preload="metadata"
+                                            className="absolute inset-0 size-full object-cover"
+                                            aria-hidden
+                                        />
+                                    ) : (
+                                        <img
+                                            src={door.media_url!}
+                                            alt=""
+                                            className="absolute inset-0 size-full object-cover"
+                                        />
+                                    )}
+                                    <span className="absolute inset-0 bg-black/45" aria-hidden />
+                                </>
                             ) : null}
+
+                            <span className="relative z-10 flex h-full flex-col p-2">
+                                <span className="font-display text-2xl leading-none drop-shadow-sm">
+                                    {door.day}
+                                </span>
+                                {door.unlocked ? (
+                                    <span className="mt-auto block truncate text-[0.65rem] uppercase tracking-wider text-white/80 drop-shadow-sm">
+                                        {isPreviewOnly ? 'preview' : 'open'}
+                                    </span>
+                                ) : null}
+                            </span>
                         </button>
                     );
                 })}

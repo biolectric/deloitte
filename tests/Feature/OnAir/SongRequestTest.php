@@ -3,11 +3,11 @@
 use App\Models\SongRequest;
 
 test('guests can submit a song request', function () {
-    $response = $this->post(route('songs.store'), [
+    $response = unlockOnAir()->post(route('songs.store'), [
         'title' => 'Africa',
         'artist' => 'Toto',
         'name' => 'Ian',
-        'department' => 'Consulting',
+        'department' => 'Tax Transformation Consulting (TTC)',
         'reason' => 'Klassieker',
     ]);
 
@@ -15,12 +15,12 @@ test('guests can submit a song request', function () {
     $this->assertDatabaseHas('song_requests', [
         'title' => 'Africa',
         'artist' => 'Toto',
-        'department' => 'Consulting',
+        'department' => 'Tax Transformation Consulting (TTC)',
     ]);
 });
 
 test('song request requires title and artist', function () {
-    $response = $this->from('/')->post(route('songs.store'), [
+    $response = unlockOnAir()->from('/')->post(route('songs.store'), [
         'title' => '',
         'artist' => '',
     ]);
