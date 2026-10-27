@@ -14,4 +14,16 @@ return [
 
     'entry_word' => env('ONAIR_ENTRY_WORD', 'deloitte123'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Public go-live moment
+    |--------------------------------------------------------------------------
+    |
+    | Before this timestamp the public site shows a coming-soon page.
+    | Admins can still open the full site and the dashboard.
+    |
+    */
+
+    'goes_live_at' => env('ONAIR_GOES_LIVE_AT', '2026-12-01T08:00:00+01:00'),
+
 ];

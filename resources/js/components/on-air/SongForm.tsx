@@ -33,31 +33,19 @@ export function SongForm() {
 
             <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
                 <Field
-                    label="Title *"
-                    value={form.data.title}
-                    error={form.errors.title}
-                    onChange={(value) => form.setData('title', value)}
-                    required
-                />
-                <Field
-                    label="Artist *"
-                    value={form.data.artist}
-                    error={form.errors.artist}
-                    onChange={(value) => form.setData('artist', value)}
-                    required
-                />
-                <Field
-                    label="Full name"
+                    label="Full name *"
                     value={form.data.name}
                     error={form.errors.name}
                     onChange={(value) => form.setData('name', value)}
+                    required
                 />
                 <label className="block">
                     <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
-                        Offering portfolio
+                        Offering portfolio *
                     </span>
                     <select
                         value={form.data.department}
+                        required
                         onChange={(event) => form.setData('department', event.target.value)}
                         className="h-12 w-full border border-white/15 bg-black/30 px-4 text-white outline-none transition focus:border-[var(--onair-green)]"
                     >
@@ -80,9 +68,23 @@ export function SongForm() {
                         </span>
                     ) : null}
                 </label>
+                <Field
+                    label="Song title *"
+                    value={form.data.title}
+                    error={form.errors.title}
+                    onChange={(value) => form.setData('title', value)}
+                    required
+                />
+                <Field
+                    label="Artist *"
+                    value={form.data.artist}
+                    error={form.errors.artist}
+                    onChange={(value) => form.setData('artist', value)}
+                    required
+                />
                 <div className="sm:col-span-2">
                     <Field
-                        label="Short reason"
+                        label="Reason"
                         value={form.data.reason}
                         error={form.errors.reason}
                         onChange={(value) => form.setData('reason', value)}
@@ -92,7 +94,7 @@ export function SongForm() {
                     <button
                         type="submit"
                         disabled={form.processing}
-                        className="inline-flex h-12 items-center justify-center bg-[var(--onair-green)] px-8 font-medium text-[var(--onair-ink)] transition hover:brightness-110 disabled:opacity-60"
+                        className="inline-flex h-12 items-center justify-center bg-[var(--onair-green)] px-8 text-base font-medium text-[var(--onair-ink)] transition hover:brightness-110 disabled:opacity-60"
                     >
                         {form.processing ? 'Sending…' : 'Submit request'}
                     </button>
@@ -101,7 +103,6 @@ export function SongForm() {
         </div>
     );
 }
-
 
 function Field({
     label,

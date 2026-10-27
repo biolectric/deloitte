@@ -21,8 +21,8 @@ class StoreSongRequestRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'artist' => ['required', 'string', 'max:255'],
-            'name' => ['nullable', 'string', 'max:255'],
-            'department' => ['nullable', 'string', Rule::in(Departments::all())],
+            'name' => ['required', 'string', 'max:255'],
+            'department' => ['required', 'string', Rule::in(Departments::all())],
             'reason' => ['nullable', 'string', 'max:500'],
         ];
     }
@@ -33,8 +33,10 @@ class StoreSongRequestRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => 'Please enter a title.',
+            'title.required' => 'Please enter a song title.',
             'artist.required' => 'Please enter an artist.',
+            'name.required' => 'Enter your full name.',
+            'department.required' => 'Choose an offering portfolio.',
             'department.in' => 'Choose an offering portfolio from the list.',
         ];
     }

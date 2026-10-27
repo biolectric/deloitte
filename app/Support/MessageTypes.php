@@ -22,6 +22,19 @@ final class MessageTypes
         ];
     }
 
+    /**
+     * Types available in the general “Send a message” form.
+     *
+     * @return list<string>
+     */
+    public static function general(): array
+    {
+        return [
+            self::COMPLIMENT,
+            self::YEAR_END,
+        ];
+    }
+
     public static function label(string $type): string
     {
         return match ($type) {

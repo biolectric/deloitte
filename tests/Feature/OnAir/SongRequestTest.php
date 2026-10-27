@@ -19,12 +19,14 @@ test('guests can submit a song request', function () {
     ]);
 });
 
-test('song request requires title and artist', function () {
+test('song request requires title, artist, name and offering portfolio', function () {
     $response = unlockOnAir()->from('/')->post(route('songs.store'), [
         'title' => '',
         'artist' => '',
+        'name' => '',
+        'department' => '',
     ]);
 
-    $response->assertSessionHasErrors(['title', 'artist']);
+    $response->assertSessionHasErrors(['title', 'artist', 'name', 'department']);
     expect(SongRequest::query()->count())->toBe(0);
 });

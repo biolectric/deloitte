@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function __invoke(Request $request, OnAirStats $stats, ViewerPresence $presence): Response
     {
         $announcementPath = Setting::getValue(Setting::ANNOUNCEMENT_VIDEO_PATH);
-        $broadcastAt = Setting::getValue(Setting::BROADCAST_AT, '2026-12-01T18:00:00+01:00');
+        $broadcastAt = Setting::getValue(Setting::BROADCAST_AT, '2026-12-01T08:00:00+01:00');
         $viewerCount = $presence->heartbeat($request->session()->getId());
         $canAdmin = $request->user()?->isAdmin() ?? false;
 

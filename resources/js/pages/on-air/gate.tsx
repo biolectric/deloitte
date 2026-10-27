@@ -1,6 +1,5 @@
 import { Form, Head } from '@inertiajs/react';
 
-import { ChristmasLights } from '@/components/on-air/ChristmasLights';
 import { FestiveAtmosphere } from '@/components/on-air/FestiveAtmosphere';
 import { deloitteLogoUrl } from '@/lib/brand';
 
@@ -12,8 +11,7 @@ export default function OnAirGate() {
             <FestiveAtmosphere />
 
             <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[var(--onair-ink)]/92 backdrop-blur-sm">
-                <ChristmasLights />
-                <div className="mx-auto flex max-w-7xl items-center px-5 pb-3 sm:px-6 sm:pb-4 lg:px-10">
+                <div className="mx-auto flex max-w-7xl items-center justify-end px-5 py-3 sm:px-6 sm:py-4 lg:px-10">
                     <img
                         src={deloitteLogoUrl}
                         alt="Deloitte"
@@ -22,10 +20,10 @@ export default function OnAirGate() {
                 </div>
             </header>
 
-            <div className="h-24 sm:h-32 lg:h-36" aria-hidden />
+            <div className="h-16 sm:h-20 lg:h-24" aria-hidden />
 
-            <main className="relative z-10 mx-auto flex min-h-[calc(100svh-9rem)] w-full max-w-lg flex-col justify-center px-5 py-10 sm:px-6 lg:px-10">
-                <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-[var(--onair-green)] sm:text-xs">
+            <main className="relative z-10 mx-auto flex min-h-[calc(100svh-6rem)] w-full max-w-lg flex-col items-end justify-center px-5 py-10 text-right sm:px-6 lg:px-10">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--onair-green)]">
                     Private gathering
                 </p>
                 <h1 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
@@ -34,11 +32,15 @@ export default function OnAirGate() {
                 <p className="font-accent mt-3 text-lg italic text-white/85 sm:text-xl">
                     Only those who know it may step inside.
                 </p>
+                <p className="mt-4 text-base leading-relaxed text-white/60">
+                    Like the password to the holiday camp when you were little — whisper it below
+                    and come join T&L Tune In.
+                </p>
 
                 <Form
                     action="/enter"
                     method="post"
-                    className="mt-8 space-y-4"
+                    className="mt-8 w-full space-y-4 text-left"
                     resetOnSuccess={['secret_word']}
                 >
                     {({ errors, processing }) => (
@@ -63,13 +65,15 @@ export default function OnAirGate() {
                                 ) : null}
                             </label>
 
-                            <button
-                                type="submit"
-                                disabled={processing}
-                                className="inline-flex h-12 items-center justify-center bg-[var(--onair-green)] px-8 font-semibold text-[var(--onair-ink)] transition hover:brightness-110 disabled:opacity-60"
-                            >
-                                {processing ? 'Checking…' : 'Come in'}
-                            </button>
+                            <div className="flex justify-end">
+                                <button
+                                    type="submit"
+                                    disabled={processing}
+                                    className="inline-flex h-12 items-center justify-center bg-[var(--onair-green)] px-8 text-base font-semibold text-[var(--onair-ink)] transition hover:brightness-110 disabled:opacity-60"
+                                >
+                                    {processing ? 'Checking…' : 'Come in'}
+                                </button>
+                            </div>
                         </>
                     )}
                 </Form>

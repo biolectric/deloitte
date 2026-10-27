@@ -11,20 +11,11 @@ class MessageController extends Controller
 {
     public function store(StoreMessageRequest $request): RedirectResponse
     {
-        $path = null;
-        $mediaType = null;
         $type = $request->validated('type');
 
-        if ($request->hasFile('media') && $type !== MessageTypes::PERSON_OF_THE_YEAR) {
-            $file = $request->file('media');
-            $mime = $file->getMimeType() ?? '';
-            $mediaType = str_starts_with($mime, 'audio/') ? 'audio' : 'video';
-            $path = $file->store('messages', 'public');
-        }
-
         Message::query()->create([
-            'media_path' => $path,
-            'media_type' => $mediaType,
+            'media_path' => null,
+            'media_type' => null,
             'name' => $request->validated('name'),
             'nominee' => $type === MessageTypes::PERSON_OF_THE_YEAR
                 ? $request->validated('nominee')

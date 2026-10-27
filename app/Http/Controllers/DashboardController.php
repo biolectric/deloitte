@@ -44,7 +44,7 @@ class DashboardController extends Controller
                 ? Storage::disk('public')->url($announcementPath)
                 : null,
             'adventDoorsCount' => AdventDoor::query()->count(),
-            'broadcastAt' => Setting::getValue(Setting::BROADCAST_AT, '2026-12-01T18:00:00+01:00'),
+            'broadcastAt' => Setting::getValue(Setting::BROADCAST_AT, '2026-12-01T08:00:00+01:00'),
         ]);
     }
 }
