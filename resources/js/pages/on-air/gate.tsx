@@ -2,6 +2,7 @@ import { Form, Head } from '@inertiajs/react';
 
 import { ChristmasLights } from '@/components/on-air/ChristmasLights';
 import { FestiveAtmosphere } from '@/components/on-air/FestiveAtmosphere';
+import { deloitteLogoUrl } from '@/lib/brand';
 
 export default function OnAirGate() {
     return (
@@ -13,9 +14,11 @@ export default function OnAirGate() {
             <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[var(--onair-ink)]/92 backdrop-blur-sm">
                 <ChristmasLights />
                 <div className="mx-auto flex max-w-7xl items-center px-5 pb-3 sm:px-6 sm:pb-4 lg:px-10">
-                    <p className="text-4xl font-semibold leading-none tracking-tight text-white sm:text-5xl lg:text-6xl">
-                        Deloitte<span className="text-[var(--onair-green)]">.</span>
-                    </p>
+                    <img
+                        src={deloitteLogoUrl}
+                        alt="Deloitte"
+                        className="h-7 w-auto sm:h-9 lg:h-10"
+                    />
                 </div>
             </header>
 

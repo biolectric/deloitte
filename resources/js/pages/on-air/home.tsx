@@ -10,7 +10,7 @@ import { FestiveAtmosphere } from '@/components/on-air/FestiveAtmosphere';
 import { MessageForm } from '@/components/on-air/MessageForm';
 import { NextSectionButton } from '@/components/on-air/NextSectionButton';
 import { SongForm } from '@/components/on-air/SongForm';
-import { logoUrl } from '@/lib/brand';
+import { deloitteLogoUrl, logoUrl } from '@/lib/brand';
 import type { AdventDoorItem, LiveFeedResponse, OnAirStats } from '@/types/on-air';
 
 type Props = {
@@ -111,11 +111,12 @@ export default function OnAirHome({
             <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[var(--onair-ink)]/92 backdrop-blur-sm">
                 <ChristmasLights />
                 <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 pb-3 sm:px-6 sm:pb-4 lg:px-10">
-                    <a
-                        href="#hero"
-                        className="text-4xl font-semibold leading-none tracking-tight text-white sm:text-5xl lg:text-6xl"
-                    >
-                        Deloitte<span className="text-[var(--onair-green)]">.</span>
+                    <a href="#hero" className="inline-flex shrink-0 items-center">
+                        <img
+                            src={deloitteLogoUrl}
+                            alt="Deloitte"
+                            className="h-7 w-auto sm:h-9 lg:h-10"
+                        />
                     </a>
                     <nav className="hidden items-center gap-7 text-sm text-white/85 lg:flex">
                         {navLinks.map((link) => (
