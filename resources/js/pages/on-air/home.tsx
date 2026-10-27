@@ -172,7 +172,7 @@ export default function OnAirHome({
                             />
                         </div>
 
-                        <div className="order-2 min-w-0 text-right">
+                        <div className="order-2 min-w-0 text-center lg:text-right">
                             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--onair-green)]">
                                 Live on 1 December
                             </p>
@@ -183,7 +183,7 @@ export default function OnAirHome({
                                 Let the countdown begin.
                             </p>
 
-                            <div className="mt-5 flex flex-col items-end gap-3 sm:mt-6">
+                            <div className="mt-5 flex flex-col items-center gap-3 sm:mt-6 lg:items-end">
                                 <p className="text-xs uppercase tracking-[0.18em] text-white/45">
                                     Countdown to 1 December
                                 </p>
@@ -206,18 +206,16 @@ export default function OnAirHome({
                 </section>
 
                 <section className="relative border-t border-white/10 px-5 py-4 sm:px-6 sm:py-5 lg:px-10 lg:py-6">
-                    <div className="mx-auto max-w-7xl text-right">
-                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--onair-green)]">
+                    <div className="mx-auto max-w-7xl text-center lg:text-right">
+                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--onair-green)] lg:pr-6 xl:pr-8">
                             Be part of the show
                         </p>
                         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:mt-5 lg:grid-cols-4 lg:gap-0">
                             {partOfShow.map((item, index) => (
                                 <div
                                     key={item.href}
-                                    className={`text-right ${
-                                        index > 0
-                                            ? 'lg:border-l lg:border-white/15 lg:pl-6 xl:pl-8'
-                                            : 'lg:pr-6 xl:pr-8'
+                                    className={`text-center lg:px-6 lg:text-right xl:px-8 ${
+                                        index > 0 ? 'lg:border-l lg:border-white/15' : ''
                                     }`}
                                 >
                                     <p className="text-3xl font-bold leading-none text-[var(--onair-green)] sm:text-4xl">
@@ -284,7 +282,7 @@ export default function OnAirHome({
             </Section>
 
             <footer className="relative z-10 border-t border-[var(--onair-green)]/15 px-6 py-10 text-sm text-white/40 lg:px-10">
-                <div className="mx-auto flex max-w-7xl flex-col items-end gap-2 text-right sm:flex-row sm:items-center sm:justify-end sm:gap-8">
+                <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 text-center sm:flex-row sm:items-center sm:justify-center sm:gap-8 lg:justify-end lg:text-right">
                     <p>
                         Deloitte<span className="text-[var(--onair-green)]">.</span> T&L Tune In
                     </p>
@@ -313,7 +311,7 @@ function Section({
             id={id}
             className="xmas-section relative z-10 scroll-mt-24 px-5 py-12 sm:px-6 sm:py-16 lg:px-10 lg:py-24"
         >
-            <div className="mx-auto max-w-6xl text-right">
+            <div className="mx-auto max-w-6xl text-center lg:text-right">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--onair-green)]">
                     {eyebrow}
                 </p>
@@ -321,7 +319,7 @@ function Section({
                     {title}
                 </h2>
                 {intro ? (
-                    <p className="ml-auto mt-3 max-w-2xl text-base leading-relaxed text-white/60">
+                    <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-white/60 lg:ml-auto lg:mr-0">
                         {intro}
                     </p>
                 ) : null}
