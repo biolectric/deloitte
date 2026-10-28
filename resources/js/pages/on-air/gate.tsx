@@ -11,7 +11,7 @@ export default function OnAirGate() {
             <FestiveAtmosphere />
 
             <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[var(--onair-ink)]/92 backdrop-blur-sm">
-                <div className="mx-auto flex max-w-7xl items-center justify-end px-5 py-3 sm:px-6 sm:py-4 lg:px-10">
+                <div className="mx-auto flex max-w-7xl items-center justify-start px-5 py-3 sm:px-6 sm:py-4 lg:px-10">
                     <img
                         src={deloitteLogoUrl}
                         alt="Deloitte"
