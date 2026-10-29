@@ -1,4 +1,5 @@
 import deloitteLogoUrl from '../../img/deloitteLogo.png';
-import logoUrl from '../../img/original-logo.jpg';
+import legalLogoUrl from '../../img/legal.png';
+import logoUrl from '../../img/original-logo2.png';
 
-export { deloitteLogoUrl, logoUrl };
+export { deloitteLogoUrl, legalLogoUrl, logoUrl };

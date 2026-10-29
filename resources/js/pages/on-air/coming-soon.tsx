@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react';
 
 import { FestiveAtmosphere } from '@/components/on-air/FestiveAtmosphere';
-import { deloitteLogoUrl } from '@/lib/brand';
+import { deloitteLogoUrl, legalLogoUrl } from '@/lib/brand';
 
 type Props = {
     goesLiveAt: string;
@@ -23,16 +23,21 @@ export default function ComingSoon({ goesLiveAt }: Props) {
             <FestiveAtmosphere />
 
             <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[var(--onair-ink)]/92 backdrop-blur-sm">
-                <div className="mx-auto flex max-w-7xl items-center justify-start px-5 py-4 sm:px-6 lg:px-10">
+                <div className="flex w-full items-center justify-between px-5 py-4 sm:px-6 lg:px-10">
                     <img
                         src={deloitteLogoUrl}
                         alt="Deloitte"
                         className="h-7 w-auto sm:h-9 lg:h-10"
                     />
+                    <img
+                        src={legalLogoUrl}
+                        alt="Deloitte Legal"
+                        className="h-5 w-auto sm:h-6 lg:h-7"
+                    />
                 </div>
             </header>
 
-            <main className="relative z-10 mx-auto flex min-h-screen max-w-2xl flex-col items-end justify-center px-5 py-24 text-right sm:px-6 lg:px-10">
+            <main className="relative z-10 mx-auto flex min-h-screen max-w-2xl flex-col items-start justify-center px-5 py-24 text-left sm:px-6 lg:px-10">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--onair-green)]">
                     T&L Tune In
                 </p>

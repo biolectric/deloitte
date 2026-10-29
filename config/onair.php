@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'entry_word' => env('ONAIR_ENTRY_WORD', 'deloitte123'),
+    'entry_word' => env('ONAIR_ENTRY_WORD', 'countdown'),
 
     /*
     |--------------------------------------------------------------------------
