@@ -155,7 +155,7 @@ export default function OnAirHome({
                         <img
                             src={legalLogoUrl}
                             alt="Deloitte Legal"
-                            className="h-5 w-auto sm:h-6 lg:h-7"
+                            className="h-6 w-auto sm:h-7 lg:h-8"
                         />
                     </div>
                 </div>
