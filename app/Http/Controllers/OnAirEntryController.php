@@ -7,15 +7,23 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class OnAirEntryController extends Controller
 {
-    public function show(Request $request): Response|RedirectResponse
+    public function show(Request $request): Response|RedirectResponse|SymfonyResponse
     {
-        if (
-            $request->session()->get(EnsureOnAirEntry::SESSION_KEY) === true
-            || $request->user()?->isAdmin()
-        ) {
+        if (! $request->user()) {
+            if ($request->expectsJson() || ! $request->isMethod('GET')) {
+                abort(403, 'T&L Tune In is not open yet.');
+            }
+
+            return Inertia::render('on-air/coming-soon', [
+                'goesLiveAt' => config('onair.goes_live_at'),
+            ])->toResponse($request);
+        }
+
+        if ($request->session()->get(EnsureOnAirEntry::SESSION_KEY) === true) {
             return redirect()->route('home');
         }
 
@@ -24,6 +32,10 @@ class OnAirEntryController extends Controller
 
     public function unlock(Request $request): RedirectResponse
     {
+        if (! $request->user()) {
+            abort(403, 'T&L Tune In is not open yet.');
+        }
+
         $validated = $request->validate([
             'secret_word' => ['required', 'string', 'max:255'],
         ], [

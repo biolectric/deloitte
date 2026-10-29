@@ -1,9 +1,22 @@
 <?php
 
+use App\Models\User;
 use Inertia\Testing\AssertableInertia as Assert;
 
-test('guests are redirected to the secret word gate', function () {
+test('guests see the coming soon page', function () {
     $this->get(route('home'))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('on-air/coming-soon')
+            ->has('goesLiveAt')
+        );
+});
+
+test('logged in users are redirected to the secret word gate', function () {
+    $user = User::factory()->create();
+
+    $this->actingAs($user)
+        ->get(route('home'))
         ->assertRedirect(route('onair.entry'));
 });
 
