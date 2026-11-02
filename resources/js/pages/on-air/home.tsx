@@ -45,18 +45,18 @@ const partOfShow = [
         cta: 'Send a message',
     },
     {
-        href: '#calendar',
-        number: '03',
-        title: 'Countdown calendar',
-        body: 'Come back every day to find a new surprise.',
-        cta: 'Explore the calendar',
-    },
-    {
         href: '#nominatie',
-        number: '04',
+        number: '03',
         title: 'Person of the Year',
         body: 'Nominate your T&L Person of the Year!',
         cta: 'Nominate someone',
+    },
+    {
+        href: '#calendar',
+        number: '04',
+        title: 'Countdown calendar',
+        body: 'Come back every day to find a new surprise.',
+        cta: 'Explore the calendar',
     },
 ] as const;
 
@@ -155,7 +155,7 @@ export default function OnAirHome({
                         <img
                             src={legalLogoUrl}
                             alt="Deloitte Legal"
-                            className="h-5 w-auto sm:h-6 lg:h-7"
+                            className="h-6 w-auto sm:h-7 lg:h-8"
                         />
                     </div>
                 </div>
