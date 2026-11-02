@@ -20,7 +20,7 @@ export default function OnAirGate() {
                     <img
                         src={legalLogoUrl}
                         alt="Deloitte Legal"
-                        className="h-6 w-auto sm:h-7 lg:h-8"
+                        className="h-8 w-auto sm:h-9 lg:h-10"
                     />
                 </div>
             </header>
@@ -28,18 +28,11 @@ export default function OnAirGate() {
             <div className="h-16 sm:h-20 lg:h-24" aria-hidden />
 
             <main className="relative z-10 mx-auto flex min-h-[calc(100svh-6rem)] w-full max-w-lg flex-col items-start justify-center px-5 py-10 text-left sm:px-6 lg:px-10">
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--onair-green)]">
-                    Private gathering
-                </p>
                 <h1 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
                     Psst… what’s the secret word?
                 </h1>
                 <p className="font-accent mt-3 text-lg italic text-white/85 sm:text-xl">
                     Only those who know it may step inside.
-                </p>
-                <p className="mt-4 text-base leading-relaxed text-white/60">
-                    Like the password to the holiday camp when you were little — whisper it below
-                    and come join T&L Tune In.
                 </p>
 
                 <Form

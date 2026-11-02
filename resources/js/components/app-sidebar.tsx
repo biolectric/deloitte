@@ -5,6 +5,7 @@ import {
     LayoutGrid,
     MessageSquareText,
     Music2,
+    Users,
     Video,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
@@ -48,6 +49,11 @@ const mainNavItems: NavItem[] = [
         title: 'Countdown calendar',
         href: '/dashboard/advent',
         icon: CalendarDays,
+    },
+    {
+        title: 'Users',
+        href: '/dashboard/users',
+        icon: Users,
     },
 ];
 

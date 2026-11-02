@@ -7,6 +7,7 @@ import {
     MessageSquareText,
     Music2,
     Search,
+    Users,
     Video,
 } from 'lucide-react';
 
@@ -75,6 +76,11 @@ const mainNavItems: NavItem[] = [
         title: 'Countdown calendar',
         href: '/dashboard/advent',
         icon: CalendarDays,
+    },
+    {
+        title: 'Users',
+        href: '/dashboard/users',
+        icon: Users,
     },
 ];
 

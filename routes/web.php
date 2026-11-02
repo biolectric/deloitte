@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdventDoorController as AdminAdventDoorController
 use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\Admin\MessageController as AdminMessageController;
 use App\Http\Controllers\Admin\SongRequestController as AdminSongRequestController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LiveFeedController;
@@ -51,6 +52,9 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
     Route::get('dashboard/advent', [AdminAdventDoorController::class, 'index'])->name('dashboard.advent');
     Route::put('dashboard/advent/{adventDoor}', [AdminAdventDoorController::class, 'update'])->name('dashboard.advent.update');
+
+    Route::get('dashboard/users', [AdminUserController::class, 'index'])->name('dashboard.users');
+    Route::post('dashboard/users', [AdminUserController::class, 'store'])->name('dashboard.users.store');
 });
 
 require __DIR__.'/settings.php';

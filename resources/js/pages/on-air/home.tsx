@@ -155,7 +155,7 @@ export default function OnAirHome({
                         <img
                             src={legalLogoUrl}
                             alt="Deloitte Legal"
-                            className="h-6 w-auto sm:h-7 lg:h-8"
+                            className="h-8 w-auto sm:h-9 lg:h-10"
                         />
                     </div>
                 </div>
@@ -278,13 +278,13 @@ export default function OnAirHome({
                 <NominationForm />
             </Section>
 
-            <Section
+            {/* <Section
                 id="calendar"
                 eyebrow="Countdown calendar"
                 title="Come back every day to find a new surprise."
             >
                 <AdventCalendar doors={adventDoors} previewMode={canAdmin} />
-            </Section>
+            </Section> */}
 
             <footer className="relative z-10 border-t border-[var(--onair-green)]/15 px-6 py-10 text-sm text-white/40 lg:px-10">
                 <div className="mx-auto flex max-w-7xl flex-col items-start gap-2 text-left sm:flex-row sm:items-center sm:gap-8">
