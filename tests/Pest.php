@@ -47,11 +47,7 @@ expect()->extend('toBeOne', function () {
 
 function unlockOnAir()
 {
-    $user = \App\Models\User::factory()->create();
-
-    return test()
-        ->actingAs($user)
-        ->withSession([
-            \App\Http\Middleware\EnsureOnAirEntry::SESSION_KEY => true,
-        ]);
+    return test()->withSession([
+        \App\Http\Middleware\EnsureOnAirEntry::SESSION_KEY => true,
+    ]);
 }

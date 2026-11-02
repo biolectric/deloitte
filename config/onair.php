@@ -7,9 +7,8 @@ return [
     | Entry secret word
     |--------------------------------------------------------------------------
     |
-    | Logged-in users must enter this word before they can open the public
-    | T&L Tune In homepage. Guests always see the coming-soon page.
-    | Change via ONAIR_ENTRY_WORD in your .env file.
+    | Guests must enter this word before they can open the public T&L Tune In
+    | site. Change via ONAIR_ENTRY_WORD in your .env file.
     |
     */
 
@@ -20,7 +19,7 @@ return [
     | Broadcast / kick-off moment
     |--------------------------------------------------------------------------
     |
-    | Shown on the coming-soon page and used for the homepage countdown.
+    | Used for the homepage countdown display.
     |
     */
 
