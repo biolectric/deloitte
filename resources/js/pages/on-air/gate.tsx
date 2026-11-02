@@ -20,7 +20,7 @@ export default function OnAirGate() {
                     <img
                         src={legalLogoUrl}
                         alt="Deloitte Legal"
-                        className="h-8 w-auto sm:h-9 lg:h-10"
+                        className="h-9 w-auto sm:h-10 lg:h-11"
                     />
                 </div>
             </header>

@@ -22,7 +22,7 @@ type Props = {
 };
 
 const navLinks = [
-    { href: '#update', label: 'Marcel Vantilt' },
+    { href: '#update', label: 'Marcel Vanthilt' },
     { href: '#verzoek', label: 'Request a song' },
     { href: '#boodschap', label: 'Send a message' },
     { href: '#nominatie', label: 'Person of the Year' },
@@ -155,7 +155,7 @@ export default function OnAirHome({
                         <img
                             src={legalLogoUrl}
                             alt="Deloitte Legal"
-                            className="h-8 w-auto sm:h-9 lg:h-10"
+                            className="h-9 w-auto sm:h-10 lg:h-11"
                         />
                     </div>
                 </div>
@@ -247,8 +247,8 @@ export default function OnAirHome({
 
             <Section
                 id="update"
-                eyebrow="Marcel Vantilt"
-                title="A message from our host: Marcel Vantilt"
+                eyebrow="Marcel Vanthilt"
+                title="A message from our host: Marcel Vanthilt"
             >
                 <AnnouncementPlayer url={announcementVideoUrl} />
             </Section>
