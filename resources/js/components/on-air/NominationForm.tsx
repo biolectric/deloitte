@@ -47,14 +47,14 @@ export function NominationForm() {
 
                 <label className="block sm:col-span-2">
                     <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
-                        Why are you nominating them? *
+                        Why are you nominating him/her? *
                     </span>
                     <textarea
                         value={form.data.body}
                         required
                         onChange={(event) => form.setData('body', event.target.value)}
                         rows={4}
-                        placeholder="Tell us briefly why they deserve it"
+                        placeholder="Tell us briefly why he/she deserves it"
                         className="w-full border border-white/15 bg-black/30 px-4 py-3 text-white outline-none placeholder:text-white/35 focus:border-[var(--onair-green)]"
                     />
                     {form.errors.body ? (

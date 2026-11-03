@@ -190,7 +190,7 @@ export default function OnAirHome({
 
                             <div className="mt-5 flex flex-col items-start gap-3 sm:mt-6">
                                 <p className="text-xs uppercase tracking-[0.18em] text-white/45">
-                                    Countdown to 1 December
+                                    Countdown · as of 1 December
                                 </p>
                                 <Countdown target={broadcastAt} />
                             </div>
