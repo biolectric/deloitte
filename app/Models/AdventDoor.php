@@ -12,13 +12,14 @@ use Illuminate\Support\Facades\Storage;
  * @property int $day
  * @property string $title
  * @property string $body
+ * @property string|null $cover_path
  * @property string|null $media_path
  * @property string|null $media_type
  * @property Carbon $unlock_date
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['day', 'title', 'body', 'media_path', 'media_type', 'unlock_date'])]
+#[Fillable(['day', 'title', 'body', 'cover_path', 'media_path', 'media_type', 'unlock_date'])]
 class AdventDoor extends Model
 {
     /**
@@ -37,6 +38,15 @@ class AdventDoor extends Model
         $now ??= now();
 
         return $this->unlock_date->copy()->startOfDay()->lte($now->copy()->startOfDay());
+    }
+
+    public function coverUrl(): ?string
+    {
+        if (! $this->cover_path) {
+            return null;
+        }
+
+        return Storage::disk('public')->url($this->cover_path);
     }
 
     public function mediaUrl(): ?string

@@ -30,7 +30,7 @@ export function AdventCalendar({ doors, previewMode = false }: Props) {
             <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 sm:gap-3">
                 {doors.map((door) => {
                     const isPreviewOnly = door.unlocked && !door.date_unlocked;
-                    const showMedia = door.unlocked && Boolean(door.media_url);
+                    const showCover = Boolean(door.cover_url);
 
                     return (
                         <button
@@ -44,26 +44,15 @@ export function AdventCalendar({ doors, previewMode = false }: Props) {
                                     : 'cursor-not-allowed border-white/10 bg-black/30 text-white/25'
                             }`}
                         >
-                            {showMedia ? (
+                            {showCover ? (
                                 <>
-                                    {door.media_type === 'video' ? (
-                                        <video
-                                            src={door.media_url!}
-                                            muted
-                                            playsInline
-                                            loop
-                                            autoPlay
-                                            preload="metadata"
-                                            className="absolute inset-0 size-full object-cover"
-                                            aria-hidden
-                                        />
-                                    ) : (
-                                        <img
-                                            src={door.media_url!}
-                                            alt=""
-                                            className="absolute inset-0 size-full object-cover"
-                                        />
-                                    )}
+                                    <img
+                                        src={door.cover_url!}
+                                        alt=""
+                                        className={`absolute inset-0 size-full object-cover ${
+                                            door.unlocked ? '' : 'opacity-40 grayscale'
+                                        }`}
+                                    />
                                     <span className="absolute inset-0 bg-black/45" aria-hidden />
                                 </>
                             ) : null}

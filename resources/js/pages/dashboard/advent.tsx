@@ -7,6 +7,7 @@ type AdventDoor = {
     day: number;
     title: string;
     body: string;
+    cover_url: string | null;
     media_type: 'image' | 'video' | null;
     media_url: string | null;
     unlock_date: string;
@@ -32,7 +33,8 @@ export default function DashboardAdvent({ adventDoors }: Props) {
                 <div>
                     <h1 className="font-medium">Countdown calendar</h1>
                     <p className="mt-1 text-sm text-muted-foreground">
-                        Edit the title, text and optional image or video for each door.
+                        For each day: upload a door cover image, plus an optional surprise
+                        (image or video) shown when the door is opened.
                     </p>
                 </div>
 
@@ -63,17 +65,23 @@ function formatUnlockDate(value: string): string {
 function AdventEditor({ door }: { door: AdventDoor }) {
     const [title, setTitle] = useState(door.title);
     const [body, setBody] = useState(door.body);
+    const [cover, setCover] = useState<File | null>(null);
     const [media, setMedia] = useState<File | null>(null);
+    const [removeCover, setRemoveCover] = useState(false);
     const [removeMedia, setRemoveMedia] = useState(false);
-    const [fileKey, setFileKey] = useState(0);
+    const [coverKey, setCoverKey] = useState(0);
+    const [mediaKey, setMediaKey] = useState(0);
 
     useEffect(() => {
         setTitle(door.title);
         setBody(door.body);
+        setCover(null);
         setMedia(null);
+        setRemoveCover(false);
         setRemoveMedia(false);
-        setFileKey((key) => key + 1);
-    }, [door.title, door.body, door.media_url, door.media_type]);
+        setCoverKey((key) => key + 1);
+        setMediaKey((key) => key + 1);
+    }, [door.title, door.body, door.cover_url, door.media_url, door.media_type]);
 
     function save(event: FormEvent) {
         event.preventDefault();
@@ -82,7 +90,9 @@ function AdventEditor({ door }: { door: AdventDoor }) {
             {
                 title,
                 body,
+                cover,
                 media,
+                remove_cover: removeCover,
                 remove_media: removeMedia,
                 _method: 'put',
             },
@@ -90,14 +100,18 @@ function AdventEditor({ door }: { door: AdventDoor }) {
                 forceFormData: true,
                 preserveScroll: true,
                 onSuccess: () => {
+                    setCover(null);
                     setMedia(null);
+                    setRemoveCover(false);
                     setRemoveMedia(false);
-                    setFileKey((key) => key + 1);
+                    setCoverKey((key) => key + 1);
+                    setMediaKey((key) => key + 1);
                 },
             },
         );
     }
 
+    const showCurrentCover = door.cover_url && !removeCover;
     const showCurrentMedia = door.media_url && !removeMedia;
 
     return (
@@ -120,57 +134,103 @@ function AdventEditor({ door }: { door: AdventDoor }) {
                 className="mt-3 w-full rounded-md border border-input bg-transparent px-3 py-2"
             />
 
-            <div className="mt-3 space-y-3">
-                <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                    Image or video (optional)
-                </p>
+            <div className="mt-4 grid gap-4 lg:grid-cols-2">
+                <div className="space-y-3">
+                    <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                        Door cover (image)
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                        Front of the door on the calendar grid.
+                    </p>
 
-                {showCurrentMedia ? (
-                    <div className="overflow-hidden rounded-md border border-input bg-muted/30">
-                        {door.media_type === 'video' ? (
-                            <video
-                                className="aspect-video max-h-48 w-full object-contain"
-                                controls
-                                src={door.media_url!}
-                            />
-                        ) : (
+                    {showCurrentCover ? (
+                        <div className="overflow-hidden rounded-md border border-input bg-muted/30">
                             <img
-                                src={door.media_url!}
-                                alt={`Day ${door.day}`}
+                                src={door.cover_url!}
+                                alt={`Day ${door.day} cover`}
                                 className="max-h-48 w-full object-contain"
                             />
-                        )}
-                        <button
-                            type="button"
-                            onClick={() => setRemoveMedia(true)}
-                            className="w-full border-t border-input px-3 py-2 text-left text-sm text-red-600 hover:bg-muted dark:text-red-300"
-                        >
-                            Remove media
-                        </button>
-                    </div>
-                ) : null}
+                            <button
+                                type="button"
+                                onClick={() => setRemoveCover(true)}
+                                className="w-full border-t border-input px-3 py-2 text-left text-sm text-red-600 hover:bg-muted dark:text-red-300"
+                            >
+                                Remove cover
+                            </button>
+                        </div>
+                    ) : null}
 
-                {removeMedia && door.media_url ? (
-                    <p className="text-sm text-muted-foreground">
-                        Media will be removed on save.
+                    {removeCover && door.cover_url ? (
+                        <p className="text-sm text-muted-foreground">Cover will be removed on save.</p>
+                    ) : null}
+
+                    <input
+                        key={coverKey}
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp,image/gif"
+                        onChange={(event) => {
+                            setCover(event.target.files?.[0] ?? null);
+                            setRemoveCover(false);
+                        }}
+                        className="w-full text-sm file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-primary-foreground"
+                    />
+                </div>
+
+                <div className="space-y-3">
+                    <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                        Surprise inside (image or video)
                     </p>
-                ) : null}
+                    <p className="text-sm text-muted-foreground">
+                        Shown when someone opens the door.
+                    </p>
 
-                <input
-                    key={fileKey}
-                    type="file"
-                    accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
-                    onChange={(event) => {
-                        setMedia(event.target.files?.[0] ?? null);
-                        setRemoveMedia(false);
-                    }}
-                    className="w-full text-sm file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-primary-foreground"
-                />
+                    {showCurrentMedia ? (
+                        <div className="overflow-hidden rounded-md border border-input bg-muted/30">
+                            {door.media_type === 'video' ? (
+                                <video
+                                    className="aspect-video max-h-48 w-full object-contain"
+                                    controls
+                                    src={door.media_url!}
+                                />
+                            ) : (
+                                <img
+                                    src={door.media_url!}
+                                    alt={`Day ${door.day} surprise`}
+                                    className="max-h-48 w-full object-contain"
+                                />
+                            )}
+                            <button
+                                type="button"
+                                onClick={() => setRemoveMedia(true)}
+                                className="w-full border-t border-input px-3 py-2 text-left text-sm text-red-600 hover:bg-muted dark:text-red-300"
+                            >
+                                Remove surprise
+                            </button>
+                        </div>
+                    ) : null}
+
+                    {removeMedia && door.media_url ? (
+                        <p className="text-sm text-muted-foreground">
+                            Surprise will be removed on save.
+                        </p>
+                    ) : null}
+
+                    <input
+                        key={mediaKey}
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
+                        onChange={(event) => {
+                            setMedia(event.target.files?.[0] ?? null);
+                            setRemoveMedia(false);
+                        }}
+                        className="w-full text-sm file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-primary-foreground"
+                    />
+                </div>
             </div>
 
             <button
                 type="submit"
-                className="mt-3 inline-flex h-10 items-center rounded-md border border-input px-4 text-sm hover:bg-muted"
+                className="mt-4 inline-flex h-10 items-center rounded-md border border-input px-4 text-sm hover:bg-muted"
             >
                 Save
             </button>

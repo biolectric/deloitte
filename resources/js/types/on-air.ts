@@ -21,6 +21,7 @@ export type AdventDoorItem = {
     day: number;
     title: string;
     body: string;
+    cover_url: string | null;
     media_type: 'image' | 'video' | null;
     media_url: string | null;
     unlock_date: string;

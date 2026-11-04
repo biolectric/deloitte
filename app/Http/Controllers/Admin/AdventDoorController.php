@@ -23,6 +23,7 @@ class AdventDoorController extends Controller
                     'day' => $door->day,
                     'title' => $door->title,
                     'body' => $door->body,
+                    'cover_url' => $door->coverUrl(),
                     'media_type' => $door->media_type,
                     'media_url' => $door->mediaUrl(),
                     'unlock_date' => $door->unlock_date->toDateString(),
@@ -35,16 +36,34 @@ class AdventDoorController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'body' => ['required', 'string', 'max:2000'],
+            'cover' => ['nullable', 'file', 'max:20480', 'mimetypes:image/jpeg,image/png,image/webp,image/gif'],
+            'remove_cover' => ['sometimes', 'boolean'],
             'media' => ['nullable', 'file', 'max:102400', 'mimetypes:image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime'],
             'remove_media' => ['sometimes', 'boolean'],
         ], [
-            'media.uploaded' => 'The file is too large for the server. Choose a smaller file.',
-            'media.max' => 'The file may be at most 100 MB.',
-            'media.mimetypes' => 'Only images (jpg, png, webp, gif) or video (mp4, webm, mov) is allowed.',
+            'cover.uploaded' => 'The cover image is too large for the server. Choose a smaller file.',
+            'cover.max' => 'The cover image may be at most 20 MB.',
+            'cover.mimetypes' => 'Cover must be an image (jpg, png, webp, gif).',
+            'media.uploaded' => 'The surprise file is too large for the server. Choose a smaller file.',
+            'media.max' => 'The surprise file may be at most 100 MB.',
+            'media.mimetypes' => 'Surprise must be an image (jpg, png, webp, gif) or video (mp4, webm, mov).',
         ]);
 
         $adventDoor->title = $validated['title'];
         $adventDoor->body = $validated['body'];
+
+        if ($request->boolean('remove_cover') && $adventDoor->cover_path) {
+            Storage::disk('public')->delete($adventDoor->cover_path);
+            $adventDoor->cover_path = null;
+        }
+
+        if ($request->hasFile('cover')) {
+            if ($adventDoor->cover_path) {
+                Storage::disk('public')->delete($adventDoor->cover_path);
+            }
+
+            $adventDoor->cover_path = $request->file('cover')->store('advent/covers', 'public');
+        }
 
         if ($request->boolean('remove_media') && $adventDoor->media_path) {
             Storage::disk('public')->delete($adventDoor->media_path);

@@ -38,6 +38,7 @@ class HomeController extends Controller
                         'day' => $door->day,
                         'title' => $door->title,
                         'body' => $door->body,
+                        'cover_url' => $door->coverUrl(),
                         'media_type' => $door->media_type,
                         'media_url' => $door->mediaUrl(),
                         'unlock_date' => $door->unlock_date->toDateString(),
