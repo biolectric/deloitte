@@ -31,13 +31,13 @@ export function NominationForm() {
             <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
                 <label className="block sm:col-span-2">
                     <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
-                        Nominee *
+                        Nominee (colleague you nominate) *
                     </span>
                     <input
                         value={form.data.nominee}
                         required
                         onChange={(event) => form.setData('nominee', event.target.value)}
-                        placeholder="Who are you nominating?"
+                        placeholder="Full name of the person you nominate"
                         className="h-12 w-full border border-white/15 bg-black/30 px-4 text-white outline-none placeholder:text-white/35 focus:border-[var(--onair-green)]"
                     />
                     {form.errors.nominee ? (
@@ -64,13 +64,14 @@ export function NominationForm() {
 
                 <label className="block sm:col-span-2">
                     <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-white/55">
-                        Full name *
+                        Your Full name (nominator) *
                     </span>
                     <input
                         value={form.data.name}
                         required
                         onChange={(event) => form.setData('name', event.target.value)}
-                        className="h-12 w-full border border-white/15 bg-black/30 px-4 text-white outline-none focus:border-[var(--onair-green)]"
+                        placeholder="Your own full name"
+                        className="h-12 w-full border border-white/15 bg-black/30 px-4 text-white outline-none placeholder:text-white/35 focus:border-[var(--onair-green)]"
                     />
                     {form.errors.name ? (
                         <span className="mt-1 block text-sm text-red-300">{form.errors.name}</span>
