@@ -41,6 +41,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::delete('dashboard/songs/{songRequest}', [AdminSongRequestController::class, 'destroy'])->name('dashboard.songs.destroy');
 
     Route::get('dashboard/messages', [AdminMessageController::class, 'index'])->name('dashboard.messages');
+    Route::get('dashboard/messages/export', [AdminMessageController::class, 'export'])->name('dashboard.messages.export');
     Route::get('dashboard/messages/{message}/preview', [AdminMessageController::class, 'preview'])->name('dashboard.messages.preview');
     Route::get('dashboard/messages/{message}/media', [AdminMessageController::class, 'media'])->name('dashboard.messages.media');
     Route::get('dashboard/messages/{message}/download', [AdminMessageController::class, 'download'])->name('dashboard.messages.download');

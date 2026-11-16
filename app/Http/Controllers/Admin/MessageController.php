@@ -42,6 +42,46 @@ class MessageController extends Controller
         ]);
     }
 
+    public function export(): StreamedResponse
+    {
+        $filename = 'messages-'.now()->format('Y-m-d-His').'.csv';
+
+        return response()->streamDownload(function (): void {
+            $handle = fopen('php://output', 'w');
+
+            // UTF-8 BOM so Excel opens accented characters correctly.
+            fwrite($handle, "\xEF\xBB\xBF");
+
+            fputcsv($handle, [
+                'Type',
+                'Nominee',
+                'From',
+                'Offering portfolio',
+                'Message',
+                'Has media',
+                'Submitted at',
+            ]);
+
+            foreach (Message::query()->latest()->cursor() as $message) {
+                fputcsv($handle, [
+                    $message->type
+                        ? MessageTypes::label($message->type)
+                        : 'Message',
+                    $message->nominee,
+                    $message->name,
+                    $message->department,
+                    $message->body,
+                    filled($message->media_path) ? 'Yes' : 'No',
+                    optional($message->created_at)?->timezone(config('app.timezone'))->format('Y-m-d H:i:s'),
+                ]);
+            }
+
+            fclose($handle);
+        }, $filename, [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+        ]);
+    }
+
     public function preview(Message $message): Response|BinaryFileResponse
     {
         abort_unless($message->media_path, 404);

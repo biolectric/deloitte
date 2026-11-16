@@ -82,11 +82,19 @@ export default function DashboardMessages({ messages }: Props) {
                 ) : null}
 
                 <div className="rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <div className="border-b border-border px-4 py-3">
-                        <h1 className="font-medium">Messages ({messages.length})</h1>
-                        <p className="text-sm text-muted-foreground">
-                            Compliments, end-of-year messages and Person of the Year nominations.
-                        </p>
+                    <div className="flex flex-wrap items-start justify-between gap-3 border-b border-border px-4 py-3">
+                        <div>
+                            <h1 className="font-medium">Messages ({messages.length})</h1>
+                            <p className="text-sm text-muted-foreground">
+                                Compliments, end-of-year messages and Person of the Year nominations.
+                            </p>
+                        </div>
+                        <a
+                            href="/dashboard/messages/export"
+                            className="shrink-0 rounded-md border border-border px-3 py-2 text-sm font-medium transition hover:bg-muted/50"
+                        >
+                            Download CSV
+                        </a>
                     </div>
                     <ul className="divide-y divide-border px-4">
                         {messages.map((message) => (
