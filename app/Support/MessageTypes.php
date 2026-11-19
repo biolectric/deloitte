@@ -38,7 +38,7 @@ final class MessageTypes
     public static function label(string $type): string
     {
         return match ($type) {
-            self::COMPLIMENT => 'Compliment',
+            self::COMPLIMENT => 'Compliment / shout-out',
             self::YEAR_END => 'End of year / New Year',
             self::PERSON_OF_THE_YEAR => 'Person of the Year',
             default => $type,

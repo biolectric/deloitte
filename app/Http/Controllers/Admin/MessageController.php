@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Message;
 use App\Support\MessageTypes;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -42,11 +44,17 @@ class MessageController extends Controller
         ]);
     }
 
-    public function export(): StreamedResponse
+    public function export(Request $request): StreamedResponse
     {
-        $filename = 'messages-'.now()->format('Y-m-d-His').'.csv';
+        $validated = $request->validate([
+            'type' => ['required', 'string', Rule::in(MessageTypes::all())],
+        ]);
 
-        return response()->streamDownload(function (): void {
+        $type = $validated['type'];
+        $slug = str_replace('_', '-', $type);
+        $filename = "messages-{$slug}-".now()->format('Y-m-d-His').'.csv';
+
+        return response()->streamDownload(function () use ($type): void {
             $handle = fopen('php://output', 'w');
 
             // UTF-8 BOM so Excel opens accented characters correctly.
@@ -62,11 +70,14 @@ class MessageController extends Controller
                 'Submitted at',
             ]);
 
-            foreach (Message::query()->latest()->cursor() as $message) {
+            foreach (
+                Message::query()
+                    ->where('type', $type)
+                    ->latest()
+                    ->cursor() as $message
+            ) {
                 fputcsv($handle, [
-                    $message->type
-                        ? MessageTypes::label($message->type)
-                        : 'Message',
+                    MessageTypes::label($type),
                     $message->nominee,
                     $message->name,
                     $message->department,

@@ -89,12 +89,26 @@ export default function DashboardMessages({ messages }: Props) {
                                 Compliments, end-of-year messages and Person of the Year nominations.
                             </p>
                         </div>
-                        <a
-                            href="/dashboard/messages/export"
-                            className="shrink-0 rounded-md border border-border px-3 py-2 text-sm font-medium transition hover:bg-muted/50"
-                        >
-                            Download CSV
-                        </a>
+                        <div className="flex flex-wrap gap-2">
+                            <a
+                                href="/dashboard/messages/export?type=compliment"
+                                className="shrink-0 rounded-md border border-border px-3 py-2 text-sm font-medium transition hover:bg-muted/50"
+                            >
+                                CSV: Compliment / shout-out
+                            </a>
+                            <a
+                                href="/dashboard/messages/export?type=year_end"
+                                className="shrink-0 rounded-md border border-border px-3 py-2 text-sm font-medium transition hover:bg-muted/50"
+                            >
+                                CSV: End of year / New Year
+                            </a>
+                            <a
+                                href="/dashboard/messages/export?type=person_of_the_year"
+                                className="shrink-0 rounded-md border border-border px-3 py-2 text-sm font-medium transition hover:bg-muted/50"
+                            >
+                                CSV: Person of the Year
+                            </a>
+                        </div>
                     </div>
                     <ul className="divide-y divide-border px-4">
                         {messages.map((message) => (
