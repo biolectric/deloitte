@@ -47,11 +47,11 @@ class MessageController extends Controller
     public function export(Request $request): StreamedResponse
     {
         $validated = $request->validate([
-            'type' => ['required', 'string', Rule::in(MessageTypes::all())],
+            'type' => ['nullable', 'string', Rule::in([...MessageTypes::all(), 'all'])],
         ]);
 
-        $type = $validated['type'];
-        $slug = str_replace('_', '-', $type);
+        $type = $validated['type'] ?? 'all';
+        $slug = $type === 'all' ? 'all' : str_replace('_', '-', $type);
         $filename = "messages-{$slug}-".now()->format('Y-m-d-His').'.csv';
 
         return response()->streamDownload(function () use ($type): void {
@@ -70,14 +70,17 @@ class MessageController extends Controller
                 'Submitted at',
             ]);
 
-            foreach (
-                Message::query()
-                    ->where('type', $type)
-                    ->latest()
-                    ->cursor() as $message
-            ) {
+            $query = Message::query()->latest();
+
+            if ($type !== 'all') {
+                $query->where('type', $type);
+            }
+
+            foreach ($query->cursor() as $message) {
                 fputcsv($handle, [
-                    MessageTypes::label($type),
+                    $message->type
+                        ? MessageTypes::label($message->type)
+                        : 'Message',
                     $message->nominee,
                     $message->name,
                     $message->department,

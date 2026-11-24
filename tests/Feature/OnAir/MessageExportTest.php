@@ -61,11 +61,42 @@ test('person of the year csv only includes that type', function () {
         ->not->toContain('New Year resolution');
 });
 
-test('export requires a valid message type', function () {
+test('admins can download all messages combined', function () {
+    $admin = User::factory()->admin()->create();
+
+    Message::factory()->create([
+        'type' => MessageTypes::COMPLIMENT,
+        'name' => 'Sam Sender',
+        'body' => 'Thanks for the help',
+    ]);
+
+    Message::factory()->create([
+        'type' => MessageTypes::PERSON_OF_THE_YEAR,
+        'nominee' => 'Alex Nominee',
+        'name' => 'Sam Sender',
+        'body' => 'Great colleague',
+    ]);
+
+    $response = $this->actingAs($admin)
+        ->get(route('dashboard.messages.export', ['type' => 'all']));
+
+    $response->assertOk();
+    expect($response->headers->get('content-disposition'))->toContain('messages-all-');
+
+    $csv = $response->streamedContent();
+
+    expect($csv)
+        ->toContain('Thanks for the help')
+        ->toContain('Alex Nominee')
+        ->toContain('Compliment / shout-out')
+        ->toContain('Person of the Year');
+});
+
+test('export rejects an invalid message type', function () {
     $admin = User::factory()->admin()->create();
 
     $this->actingAs($admin)
-        ->get(route('dashboard.messages.export'))
+        ->get(route('dashboard.messages.export', ['type' => 'not-a-type']))
         ->assertSessionHasErrors('type');
 });
 

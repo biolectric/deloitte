@@ -91,6 +91,12 @@ export default function DashboardMessages({ messages }: Props) {
                         </div>
                         <div className="flex flex-wrap gap-2">
                             <a
+                                href="/dashboard/messages/export?type=all"
+                                className="shrink-0 rounded-md border border-border px-3 py-2 text-sm font-medium transition hover:bg-muted/50"
+                            >
+                                CSV: All messages
+                            </a>
+                            <a
                                 href="/dashboard/messages/export?type=compliment"
                                 className="shrink-0 rounded-md border border-border px-3 py-2 text-sm font-medium transition hover:bg-muted/50"
                             >

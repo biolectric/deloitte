@@ -13,6 +13,8 @@ use App\Http\Controllers\OnAirEntryController;
 use App\Http\Controllers\SongRequestController;
 use Illuminate\Support\Facades\Route;
 
+Route::view('/testwino', 'testwino')->name('testwino');
+
 Route::get('/enter', [OnAirEntryController::class, 'show'])->name('onair.entry');
 Route::post('/enter', [OnAirEntryController::class, 'unlock'])
     ->middleware('throttle:20,1')
